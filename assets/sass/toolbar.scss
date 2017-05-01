@@ -1,0 +1,71 @@
+.Header-button--toolbar {
+    position: relative;
+    left: 6em;
+    top: 1em;
+    margin-left: -4em;
+    outline: none;
+    border: 0;
+    background: transparent;
+    /*height: 200px;*/
+    transition: all .3s;
+    cursor: pointer;
+    width: auto;
+    position: absolute;
+    top: 0.6em;
+}
+
+.Header-icons--line {
+    display: inline-block;
+    width: 30px;
+    background: white;
+    transition: all .3s;
+    height: 3.71429px;
+    position: relative;
+}
+
+.Header-icons--line:before, .Header-icons--line:after {
+    display: inline-block;
+    height: 3.71429px;
+    width: 100%;
+    background: white;
+    position: absolute;
+    content: "";
+    left: 0;
+    transition: top .3s .6s ease, transform .3s ease;
+}
+
+.Header-icons--line:before {
+    top: 8px;
+}
+
+.Header-icons--line:after {
+    top: -8px;
+}
+
+.Header-icons--line:before, .Header-icons--line:after{
+  display: inline-block;
+  height: 3.71429px;
+  width: 100%;
+  background: white;
+  position: absolute;
+  content: "";
+  left: 0;
+  transition: top .3s .6s ease, transform .3s ease;
+}
+.Header-transform .Header-icons--line{
+  background: white;
+  transform: scale3d(0.8, 0.8, 0.8);
+  width: 2em;
+}
+.Header-transform .Header-icons--line:before, .Header-transform .Header-icons--line:after{
+  transform-origin: 5% 50%;
+  top: 0;
+  width: 29px;
+  transition: top .3s ease, transform .3s .5s ease;
+}
+.Header-transform .Header-icons--line:before{
+  transform: rotate3d(0, 0, 1, 45deg);
+}
+.Header-transform .Header-icons--line:after{
+  transform: rotate3d(0, 0, 1, -45deg);
+}

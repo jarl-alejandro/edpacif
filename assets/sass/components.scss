@@ -1,0 +1,313 @@
+
+/*Component*/
+#modalTareaForm{
+  position: absolute;
+  top: -4em;
+  left: 10em;
+  width: 50em;
+  display: none;
+  #cancelar{
+    display: none;
+  }
+}
+#InformacionEquipo{
+  position: absolute;
+  top: 2em;
+  left: 15%;
+  display: none;
+  width: 40em;
+}
+#TaskCommon{
+  position: fixed;
+  top: 12em;
+  left: 34%;
+  width: 28em;
+}
+#form-employ, #form-conatiner, #form-quipos{
+  z-index: 1111;
+  top: 7em !important;
+}
+#form-container{
+  position: absolute;
+  top: 9em;
+  left: 18%;
+  width: 60%;
+  z-index: 1111;
+}
+#form-proveedor{
+  position: absolute;
+  top: 12em;
+  left: 12%;
+  width: 84em;
+  z-index: 1111111111;
+}
+#form-btn{
+  position: absolute;
+  right: 1em;
+  z-index: 100;
+  top: 1em;
+}
+#TaskRevisar, #TaskPanel{
+  position: absolute;
+  top: 3em;
+  left: 10%;
+  width: 50%;
+}
+#TaskPanel{
+  z-index: 11;
+}
+#TaskRevisar{
+  z-index: 14;
+}
+.principal-cuenta{
+  font-weight: bold;
+}
+.sub-cuenta{
+  padding-left: 4em !important;
+}
+.title{
+  background: #3b4354;
+  padding: .5em;
+  color: white;
+  font-weight: bold;
+  font-family: 'Dancing Script', cursive;
+  text-transform: uppercase;
+  margin: 1em 0;
+  box-shadow: 0px 1px 1.5px rgba(0,0,0,0.5);
+}
+
+.footer-pane button{
+  margin-right: .5em;
+}
+
+
+.imagen__equipo{
+  width: 15em;
+  transform: rotate(11deg);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.62);
+}
+.card__equipo{
+  width: 20em;
+  height: 17em;
+  margin-top: 2em;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.62);
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.card__equipo:nth-child(even) {
+  transform: rotate(4deg);
+}
+.card__equipo:nth-child(odd) {
+  transform: rotate(-4deg);
+}
+
+.card__equipo:hover > .card__equipo--screen{
+  top: 0;
+}
+.card__equipo--screen{
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -100%;
+  transition: all .8s;
+  display: flex;
+  align-items: flex-end;
+
+}
+.card__equipo--title{
+  font-size: 2.4em;
+  margin: 0;
+  font-weight: bold;
+  font-family: 'Lato';
+  color: #ff5722;
+  text-shadow: 0px 1px 1.5px rgba(0,0,0,0.5);
+  transform: rotate(-39deg);
+}
+
+.tab-equipo{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: white;
+}
+.tab-equipo__item{
+  width: 48%;
+  background-color: #259dab;
+  background-image: linear-gradient(to right, #259dab 0%, #2574ab 100%);
+  background-repeat: repeat-x;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0px 1px 1.5px rgba(0,0,0,0.5);
+  margin-top: 0.5em !important;
+}
+.tab-equipo__item a{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.tab-equipo__card{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.login-form{
+  box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.5);
+  width: 48em;
+  fieldset{
+    padding: .5em;
+  }
+  legend{
+    background: #118594;
+    color: white;
+    font-weight: bold;
+    font-size: 2.4em;
+    text-transform: uppercase;
+  }
+}
+.panel-inventario, .panel-listadoHerramientas{
+  position: absolute;
+  top: 2em;
+  left: 10%;
+  width: 50em;
+}
+.cards-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.team{
+  width: 1em;
+  height: 2em;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+.team__error{
+  background: #F44336;
+}
+.team__ok{
+  background: #009688;
+}
+
+.Orden__mensaje, .pedir-bodega{
+  position: absolute;
+  top: 1em;
+  left: 25%;
+  width: 50%;
+}
+.avisado{
+  i{
+    color: #abaaaa !important;
+  }
+}
+.visto{
+  i{
+    color: #009688 !important;
+  }
+}
+.review{
+  i{
+    color: #009688 !important;
+  }
+}
+.bandera i{
+  font-size: 7em;
+  position: absolute;
+  right: .5em;
+}
+.derecha{
+  float: right;
+  margin: 0;
+}
+.buscador{
+  position: absolute;
+  font-size: 1.5em;
+  i{
+    color: #7b7a7b;
+  }
+}
+
+.change__pieza{
+  background: #2587ab;
+  width: 1em;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buscador{
+  padding: 1em 1em 0em 1em;
+}
+.equipos__alert{
+  position: absolute;
+  bottom: 7em;
+  background: #3b4354;
+  padding: 0.5em 4em;
+  z-index: 11111;
+  color: white;
+  box-shadow: 0px 1px 1.5px rgba(0,0,0,0.5);
+  left: 4em;
+  li{
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid white;
+    padding: .4em;
+  }
+  #cancelarEQUI{
+    margin: 0.9em auto;
+    display: block;
+  }
+}
+.equipos__alert--title{
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.conatinerBtnHelpers{
+  margin-top: -4.3em;
+  margin-bottom: 1em;
+}
+.btn.btn-raised{
+  border-radius: 68px;
+}
+.control-label{
+  margin: 0px !important;
+}
+.panel-herramienta, .panel-tiempos, .panel-materiales{
+  position: absolute;
+  top: 2em;
+  left: 20%;
+  display: none;
+  width: 70%;
+}
+.form__date-time {
+  position: absolute;
+  width: 50em;
+  top: 2em;
+  left: 20%;
+  display: none;
+}
+#FormTareaTrabajar{
+  position: fixed;
+  left: 20em;
+  top: 7em;
+  width: 70em;
+  z-index: 1111111;
+}
+.btn.btn-fab i{
+  top: 0 !important;
+}
+#panel-orden-fecha{
+  position: fixed;
+  top: 11em;
+  z-index: 100;
+  left: 24em;
+  padding: 0;
+  display: none;  
+}

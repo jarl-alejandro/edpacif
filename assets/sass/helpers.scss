@@ -1,0 +1,148 @@
+/*Utilidades*/
+.tooltips {
+  .active {
+    background-color: white;
+  }
+}
+
+.tooltips .active i{
+  color: #394152;
+}
+.pointer{
+  cursor: pointer
+}
+.button__little{
+  width: .5em !important;
+}
+.btn__flat{
+  border: none;
+  box-shadow: 0px -7px 0px rgba(0, 0, 0, 0.35) inset;
+  border-radius: .3em;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  padding: .3em 1.2em;
+  text-transform: uppercase;
+  outline: 0;
+  -webkit-appearance: none;
+  transition: all ease .3s;
+  margin-right: 10px;
+
+  &:active{
+    transform: scale(.6);
+  }
+}
+.btn-primary{
+  background: #ff5722;
+}
+
+.btn, #form-btn{
+  box-shadow: 0px 1px 1.5px rgba(0,0,0,0.5);
+  transition: all ease .4s;
+}
+.btn:hover, #form-btn:hover{
+  box-shadow: 0px 0px 13px rgba(0,0,0,0.5) !important;
+  /*box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12) !important;*/
+}
+.text-left{
+  text-align: left !important;
+}
+.hidden{
+  display: none;
+}
+.none {
+  display: none;
+}
+.no-margin{
+  margin-top: 0 !important;
+}
+.margin--tb{
+  margin: 2em 0;
+}
+.top-space{
+  margin-top: 1em;
+}
+.top-space-big{
+  margin-top: 3em;
+}
+.top-space-bigger{
+  margin-top: 4em;
+}
+.space-padding{
+  padding: 2em;
+}
+.padding-top{
+  padding-top:4em;
+}
+.padding-top-big{
+  padding-top: 11em;
+}
+.padding-checkbox{
+  padding: 2em 22em 0;
+}
+.alert{
+  z-index: 11111;
+}
+.headerpanel, .leftpanel, .alert{
+  box-shadow: 0px 1px 1.5px rgba(0,0,0,0.5);
+  /*box-shadow: 0px 0px 10px rgba(0,0,0,0.5) !important;*/
+}
+.center{
+  display: flex;
+  justify-content: center;
+}
+.space-around{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.end-flex{
+  display: flex;
+  justify-content: flex-end;
+}
+.middle{
+  display: flex;
+  align-items: center;
+}
+.text-medium{
+  font-size: 1.5em;
+}
+.text-normal{
+  font-size: 16px;
+}
+.text-minun{
+  font-size: 1.2em;
+  padding: .7em 1em;
+}
+.full-heigth{
+  height: 100vh;
+}
+.orange{
+  background: #ff5722;
+}
+.gray-blue{
+  background: #657390;
+}
+.red{
+  background: #F44336;
+}
+.azul{
+  background: #4374dc;
+}
+.white{
+  background: white;
+}
+.text-white{
+  color: white !important;
+}
+.black-text{
+  color: black;
+}
+.green{
+  background: #009688;
+}
+.relative{
+  position: relative;
+}
