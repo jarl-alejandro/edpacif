@@ -62,16 +62,9 @@ $fecha = date("d/m/Y");
       <div class="col-xs-6">
         <div class="form-group">
           <label for="equipo" class="col-md-2 control-label">Equipos</label>
-          <div class="col-md-10">
+          <div class="col-md-10" id="equipoContainer">
             <select id="equipo" class="form-control" name="equipo">
-              <option value="">Selecione el Equipo</option>
-              <?php
-                $equipos = $pdo->query("SELECT * FROM smgeequi");
-                while ($row = $equipos->fetch()) { ?>
-                <option value="<?=$row['eequi_cod_eequi']?>">
-                  <?= $row["eequi_det_eequi"] ?>
-                </option>
-              <?php } ?>
+              <option value="">Selecione la sub area</option>
             </select>
           </div>
         </div>    

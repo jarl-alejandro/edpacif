@@ -613,3 +613,10 @@
   z-index: 111111111;
   display: none;
 }
+#Tab_FilterHermienta{
+  height: 16em;
+  overflow-y: scroll;
+}
+
+
+

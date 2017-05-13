@@ -8,6 +8,13 @@
 <head>
   <title>Ordenes de trabajo interno | Edpacif</title>
   <?php require '../head.php'; ?>
+  <style>
+    .scroll{
+      overflow-y: scroll;
+      height: 20em;
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body>
@@ -110,6 +117,34 @@
   require "../scripts.php";
   ?>
   <script type="text/javascript" src="app/ordenesTrabajo.js"></script>
-  
+    <script type="text/javascript" src="app/buscador.js"></script>
+
+  <!-- <script type="text/javascript" src="../assets/js/searchArticle.js"></script> -->
+  <script type="text/javascript" src="../assets/js/pagingArticle.js"></script>
+
+  <script type="text/javascript">
+    var pagerInve = new Pager('Tab_FilterInventario', 3, 'inventario', 4);
+    pagerInve.init();
+    pagerInve.showPageNav('pagerInve', 'NavPosicionInventario');
+    pagerInve.showPage(1);
+
+    var pagerHerra = new Pager('Tab_FilterHermienta', 3, 'herramienta', 4);
+    pagerHerra.init();
+    pagerHerra.showPageNav('pagerHerra', 'NavPosicionHerramientas');
+    pagerHerra.showPage(1);
+
+    (function() {
+      theTableInve = $("#Tab_FilterInventario");
+      $("#searchInven").keyup(function() {
+        $.articleBuscador(theTableInve, this.value, 4)
+      })
+
+      theTableHerr = $("#Tab_FilterHermienta");
+      $("#searchHerr").keyup(function() {
+        $.articleBuscador(theTableHerr, this.value, 4)
+      })
+
+    })()
+  </script>
 </body>
 </html>

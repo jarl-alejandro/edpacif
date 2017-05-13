@@ -40,7 +40,7 @@
           </label>
           <div class="col-xs-9">
             <input type="text" class="form-control" id="kilo" placeholder="250"
-            maxlength="5" onkeypress="ValidaSoloDecimal()" disabled>
+            maxlength="5" onkeypress="ValidaSoloDecimal()">
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@
         <div class="col-xs-4">
           <div class="checkbox radio-primary">
             <label>
-              <input type="checkbox" id="activeHoras">
+              <input type="checkbox" id="activeHoras" disabled>
               Activar horas
             </label>
           </div>
@@ -99,7 +99,7 @@
         <div class="col-xs-4">
           <div class="checkbox radio-primary">
             <label>
-              <input type="checkbox" id="activeKilometros">
+              <input type="checkbox" id="activeKilometros" disabled checked>
               Activar kilometraje
             </label>
           </div>

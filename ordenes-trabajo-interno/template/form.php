@@ -217,18 +217,20 @@
         </button>
       </div>
     </div>
-    <table class="table table-bordered table-default table-striped nomargin">
-      <thead>
-        <tr>
-          <th>Cant</th>
-          <th>Detalle</th>
-          <th>Valor Unit</th>
-          <th>Valor Total</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="tablemateriales"></tbody>
-    </table>
+    <div class="scroll">
+      <table class="table table-bordered table-default table-striped nomargin">
+        <thead>
+          <tr>
+            <th>Cant</th>
+            <th>Detalle</th>
+            <th>Valor Unit</th>
+            <th>Valor Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablemateriales"></tbody>
+      </table>
+    </div>
     <div class="col-xs-12 center">
       <button class="btn btn-raised btn-danger" id="panelMaterAceptar">Aceptar</button>
     </div>
@@ -248,18 +250,20 @@
         </button>
       </div>
     </div>
-    <table class="table table-bordered table-default table-striped nomargin">
-      <thead>
-        <tr>
-          <th>Cant</th>
-          <th>Detalle</th>
-          <th>Valor Unit</th>
-          <th>Valor Total</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="tableHerramientas"></tbody>
-    </table>
+    <div class="scroll">
+      <table class="table table-bordered table-default table-striped nomargin">
+        <thead>
+          <tr>
+            <th>Cant</th>
+            <th>Detalle</th>
+            <th>Valor Unit</th>
+            <th>Valor Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tableHerramientas"></tbody>
+      </table>
+    </div>
     <div class="col-xs-12 center">
       <button class="btn btn-raised btn-danger" id="panelHerramAceptar">Aceptar</button>
     </div>

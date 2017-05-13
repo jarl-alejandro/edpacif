@@ -70,7 +70,7 @@
     <?php } if($rows["etare_est_etare"] == "aprobado") {?>
         <p style="background: #009688;color: white;padding: 10px 4px;display: flex;align-items: center;">Aprobado</p>
     <?php } if($rows["etare_est_etare"] == "finalizado") {?>
-      <   <p style="background: #009688;color: white;padding: 10px 4px;display: flex;align-items: center;">Ha finalizado con exito la tarea</p>
+      <p style="background: #009688;color: white;padding: 10px 4px;display: flex;align-items: center;">Ha finalizado con exito la tarea</p>
       </button>
     <?php } ?>
       <button class="btn btn-raised center reporte visto button__little orden_visto"

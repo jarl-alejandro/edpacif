@@ -14,7 +14,7 @@ var inventarios = []
 	var $horas = $("#horas")
 	var $proveedor = $("#proveedor")
 	var $kilo = $("#kilo")
-  	var $fechaCompra = $("#fechaCompra")
+  var $fechaCompra = $("#fechaCompra")
 
 	var $inputModel = $("#inputModel")
 	var $inputMarca = $("#inputMarca")
@@ -28,17 +28,32 @@ var inventarios = []
 
 	var vehiculoBox = document.getElementById("VehiculoBox")
 	var activeHoras = true
-	var activeKilometros = true
+	var activeKilometros = false
 
 	$("#esCheckedVehiculo").on('change', function () {
 		var esCheck = document.getElementById("esCheckedVehiculo").checked
+		
 		if(esCheck == true) {
 			$("#equipoModal").fadeOut()
 			$("#vehiculoModal").fadeIn()
+
+			document.getElementById("horas").disabled = true
+			document.getElementById("kilo").disabled = false
+			document.getElementById("activeHoras").checked = false
+			document.getElementById("activeKilometros").checked = true
+			activeKilometros = false
+			activeHoras = true
 		}
 		if(esCheck == false) {
 			$("#equipoModal").fadeIn()
 			$("#vehiculoModal").fadeOut()
+
+			document.getElementById("horas").disabled = false
+			document.getElementById("kilo").disabled = true
+			document.getElementById("activeHoras").checked = true
+			document.getElementById("activeKilometros").checked = false
+			activeKilometros = true
+			activeHoras = false
 		}
 	})
 
@@ -167,7 +182,7 @@ var inventarios = []
 		$("#form-quipos").slideUp()
 		$("#imagen_name").val("")
 		
-    	$id.val("")
+    $id.val("")
 		$kilo.val("")
 		$proveedor.val("")
 		$detalle.val("")
@@ -176,10 +191,10 @@ var inventarios = []
 		$horas.val("")
 
 		$("#bajaEquipoBtn").fadeOut()
-	    $("#newGeneral").val("")
-	    $("#detalleEquipo").html("")
-	    $("#area").val("")
-	    $("#fechaCompra").attr('disabled', false)
+	  $("#newGeneral").val("")
+	  $("#detalleEquipo").html("")
+	  $("#area").val("")
+	  $("#fechaCompra").attr('disabled', false)
 
 		inventarios = []
 		localStorage.clear()
@@ -194,15 +209,21 @@ var inventarios = []
 		$inputSerieMotor.val("")
 		vehiculoBox.checked = false
 		
-    	var imagenEquipo = document.querySelector(".imagen__equipo")
+    var imagenEquipo = document.querySelector(".imagen__equipo")
 		imagenEquipo.src = ""
 		
     $(".containerVehiculo").slideUp()
 		
-    document.getElementById("horas").disabled = true
-		document.getElementById("kilo").disabled = true
+		activeKilometros = false
+		activeHoras = true
+		document.getElementById("esCheckedVehiculo").checked = true
+		$("#equipoModal").fadeOut()
+		$("#vehiculoModal").fadeIn()
+		document.getElementById("horas").disabled = true
+		document.getElementById("kilo").disabled = false
 		document.getElementById("activeHoras").checked = false
-		document.getElementById("activeKilometros").checked = false
+		document.getElementById("activeKilometros").checked = true
+
     $fechaCompra.val()
 
 		$("#containerSubArea").html(` <select class="form-control" id="subarea">

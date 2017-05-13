@@ -13,6 +13,7 @@ orden.inventarios = []
 orden.herramientas = []
 orden.inicio = []
 orden.fin = []
+orden.inicioEnviar = 0
 
 orden.inicio_count = 0
 orden.fin_count = 0
@@ -102,19 +103,22 @@ OrdenesTrabajo.prototype.ordenInicioDateTime = function () {
     alerta("Pofavor ingrese el inicio de fecha")
     return false
   }
-  var id = $("#id_orden").val()
+  if (orden.inicioEnviar === 0) {
+    var id = $("#id_orden").val()
 
-  $.ajax({
-    type: "POST",
-    url: "service/inicioFecha.php",
-    data: { inicio: orden.inicio, id }
-  })
-  .done(function (snap) {
-    console.log(snap)
-    if(snap == 2){
-      alertaInfo("Se ha guardado con exito")
-    }
-  })
+    $.ajax({
+      type: "POST",
+      url: "service/inicioFecha.php",
+      data: { inicio: orden.inicio, id }
+    })
+    .done(function (snap) {
+      console.log(snap)
+      if(snap == 2){
+        orden.inicioEnviar = 1
+        alertaInfo("Se ha guardado con exito")
+      }
+    })
+  }
   
 }
 OrdenesTrabajo.prototype.ordenFinDateTime = function () {

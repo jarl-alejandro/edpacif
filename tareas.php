@@ -34,7 +34,7 @@ else if($tareas->rowCount() == 1){
           <i class="fa fa-check" aria-hidden="true"></i>
         </button>
       <?php } else if($rows["etare_est_etare"] == 'aprobado'){ ?>
-         <button class="btn btn-raised btn-primary center button__little TareasPedidoByEmployee"
+         <button class="btn btn-raised btn-primary center button__little TareasPedidoByEmployee materialesReporte"
               data-id="<?= $rows["etare_cod_etare"]; ?>">
           <i class="fa fa-flag-checkered" aria-hidden="true"></i>
         </button>
@@ -231,7 +231,7 @@ taskDB.herramientas = []
 taskDB.inventarios = []
 taskDB.inicio = []
 taskDB.inicio_count = 0
-
+taskDB.tasEnviar = 0
 
 // Terminar
 $("#terminar-task").on('click', function (e) {
@@ -252,6 +252,7 @@ $("#terminar-task").on('click', function (e) {
   .done(function (snap) {
     console.log(snap)
     if (snap == 201)
+      window.open(`../tareas/reporte/individual.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")    
       alertaInfo("Ha terminado la tarea espere a aque el se revisada")
       $(".panel-tiempos-task").slideUp()
       $("#listTask").load("../tareas.php")
@@ -269,7 +270,8 @@ $(".add-herr-task").on("click", function (e) {
 })
 
 function addHerramientasTask (id, producto, price) {
-  var cant = $(`#cant${id}`)
+  console.log(id)
+  var cant = $(`#cant${id}_task`)
 
   if(cant.val() === "" || cant.val() == 0){
     alerta("Porfavor ingrese la cantidad")
@@ -340,7 +342,7 @@ $(".add-inve-task").on("click", function (e) {
 })
 
 function addInventarioTask (id, producto, price) { 
-  var cant = $(`#cant${id}`)
+  var cant = $(`#cant${id}_task`)
 
   if(cant.val() === "" || cant.val() == 0){
     alerta("Porfavor ingrese la cantidad")
@@ -474,28 +476,34 @@ $('#ordenFormTimeInicioTask').on('click', function (e) {
     $('.form__date-time-task').slideUp()
     return false
   }
-  var id = $("#id-task-work").val()
+  if (taskDB.tasEnviar == 0) {
+    var id = $("#id-task-work").val()
 
-  $.ajax({
-    type: "POST",
-    url: "../tareas/service/tiempoInicioGuardar.php",
-    data: { inicio: taskDB.inicio, id }
-  })
-  .done(function (snap) {
-    console.log(snap)
-    if (snap == 2) {
-      alertaInfo("Ha ingresado con exito la fecha de inicio")
-      $("#herramientas-task").slideUp()
-      $("#materiales-task").slideUp()
-      $("#ordenFormAceptar-task").slideUp()
-      $("#tiempos-task").slideUp()
-      $("#containerDetalleTask").slideDown()
-      $("#terminar-task").slideDown()
-      //location.reload()
-      $("#listTask").load("../tareas.php")
-      $("#TareasAll").load("../task_table.php")
-    }
-  })
+    $.ajax({
+      type: "POST",
+      url: "../tareas/service/tiempoInicioGuardar.php",
+      data: { inicio: taskDB.inicio, id }
+    })
+    .done(function (snap) {
+      console.log(snap)
+      if (snap == 2) {
+        taskDB.tasEnviar = 1
+        alertaInfo("Ha ingresado con exito la fecha de inicio")
+        $("#herramientas-task").slideUp()
+        $("#materiales-task").slideUp()
+        $("#ordenFormAceptar-task").slideUp()
+        $("#tiempos-task").slideUp()
+        $("#containerDetalleTask").slideDown()
+        $("#terminar-task").slideDown()
+        //location.reload()
+        $(".panel-tiempos-task").slideUp()
+        $("#listTask").load("../tareas.php")
+        $("#TareasAll").load("../task_table.php")
+      }
+    })
+    
+  }
+  else alerta("Ya subio la fecha de inicial")
 })
 
 function validarTiempoTask (hora, fecha) {
@@ -526,5 +534,10 @@ function buildingDateTimeTask () {
     $(`#tableInicioTask`).append(template)
   }
 }
+
+$(".materialesReporte").on("click", function (e) {
+  var id = e.currentTarget.dataset.id
+  window.open(`../reporte/materiales.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")    
+})
 // /Tiempos
 </script>

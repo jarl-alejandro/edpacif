@@ -164,7 +164,7 @@
       <div class="form-group col-xs-6">
         <div class="col-md-12">
           <input type="text" class="form-control cant-input"
-              id="cant<?= $row["eherr_cod_eherr"]?>"
+              id="cant<?= $row["eherr_cod_eherr"]?>_task"
               placeholder="Cant" maxlength="8"
               onkeypress="ValidaSoloNumeros()">
         </div>
@@ -214,7 +214,7 @@
       <div class="form-group col-xs-6">
         <div class="col-md-12">
           <input type="text" class="form-control cant-input"
-              id="cant<?= $row["einven_cod_einven"]?>"
+              id="cant<?= $row["einven_cod_einven"]?>_task"
               placeholder="Cant" maxlength="8"
               onkeypress="ValidaSoloNumeros()">
         </div>

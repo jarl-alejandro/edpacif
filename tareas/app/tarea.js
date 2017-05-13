@@ -169,7 +169,6 @@
       }
       
       $("#save").slideUp()
-      $("#finish").slideDown()
       $(".informLayout").slideDown()
       $("#tableLayout").slideUp()
       $(".form__layout").slideDown()

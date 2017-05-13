@@ -26,6 +26,6 @@
     </div>
   </div>
   <div class="col-xs-12 center">
-    <button class="btn btn-raised btn-primary">Aceptar</button>
+    <button class="btn btn-raised btn-primary aceptarCambio">Aceptar</button>
   </div>
 </div>

@@ -62,10 +62,27 @@
       $detalle = $("#detalle")
       $(".ocultar").fadeOut()
     })
+
+    var subarea = $("#subarea").val()
+    $.ajax({
+      type: "GET",
+      url: "service/aguaje.php",
+      data: { id: subarea },
+      dataType: "JSON"
+    })
+    .done(function (snap) {
+     // orden.aguajeDepende = snap.earege_agu_earege
+      console.log(snap)
+    })
+
+    $("#equipoContainer").load(`template/equipos.php?subarea=${subarea}`, function () {
+      $equipo = $("#equipo")
+    })
   } 
 
   function handleForm (e) {
     e.preventDefault()
+    $(".container-materiales").fadeOut()
     $("#tableLayout").slideUp()
     $(".form__layout").slideDown()
   }
@@ -91,22 +108,25 @@
   }
 
   function handleFinish () {
-    $.ajax({
-      type: "POST",
-      data: { id:$("#task_id").val() },
-      url: "service/terminar.php"
-    })
-    .done(function (snap) {
-      console.log(snap)
-      if(snap == 2) {
-        $(".tabla-contianer").load("template/table.php")
-        $("#listTask").load("../tareas.php")
-        handlecancelar()
-     }
-   })
+    if (true) {
+      $.ajax({
+        type: "POST",
+        data: { id:$("#task_id").val() },
+        url: "service/terminar.php"
+      })
+      .done(function (snap) {
+        console.log(snap)
+        if(snap == 2) {
+          $(".tabla-contianer").load("template/table.php")
+          $("#listTask").load("../tareas.php")
+          handlecancelar()
+        }
+      })
+    }
   }
 
   function handlecancelar () {
+    $(".container-materiales").fadeOut()
     location.reload()
   }
 
@@ -168,7 +188,7 @@
       prioridad: $('input[name="prioridad"]:checked').val(),
       subarea: $subarea.val(),
       tareaSub: $("#modalTareaForm #general").val(),
-      tareaDet: $("#modalTareaForm #detalle").val()
+      tareaDet: $("#modalTareaForm #detalle_name").val()
     }
   }
 

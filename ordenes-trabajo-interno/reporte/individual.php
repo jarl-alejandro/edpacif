@@ -109,9 +109,12 @@ if($fetch['eorin_est_eorin'] == "finalizado" || $fetch['eorin_est_eorin'] == "re
 }
 
 $pdf->Ln(15);
-$repuesto = $pdo->query("SELECT * FROM v_repuestos WHERE doir_cod_doir='$id'");
 
-if ($repuesto->rowCount() > 0) {
+$repuesto = $pdo->query("SELECT * FROM v_repuestos WHERE doir_cod_doir='$id'");
+$fechaInicio = $pdo->query("SELECT * FROM sgmedofi WHERE dofi_cod_dofi='$id'");
+$fechaFinal = $pdo->query("SELECT * FROM sgmedoff WHERE doff_cod_doff='$id'");
+
+if ($fechaFinal->rowCount() > 0) {
 
 $header = array('CODIGO', 'CANT', 'DETALLE', 'PRECIO', 'TOTAL');
 $pdf->TablaColores($header);
@@ -172,9 +175,6 @@ $pdf->Cell(20, 7, "HORA", 1, 0, 'C', true);
 
 $pdf->Cell(40, 7, "FECHA FINAL", 1, 0, 'C', true);
 $pdf->Cell(20, 7, "HORA", 1, 0, 'C', true);
-
-$fechaInicio = $pdo->query("SELECT * FROM sgmedofi WHERE dofi_cod_dofi='$id'");
-$fechaFinal = $pdo->query("SELECT * FROM sgmedoff WHERE doff_cod_doff='$id'");
 
 $pdf->Ln();
 

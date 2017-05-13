@@ -157,7 +157,7 @@
       var contex = { id: data.repta_herr_repta, producto: data.einven_pro_einven, 
           price: data.repta_pric_repta, total, cant: data.repta_cant_repta
       }
-      taskDBLoca.herramientas.push(contex)
+      taskDBLoca.inventarios.push(contex)
     }
     buildingHerramientas()
   }
@@ -170,7 +170,7 @@
         id: data.herta_herr_herta, producto: data.eherr_det_eherr, price: data.herta_pric_herta,
         total, cant: data.herta_cant_herta,
       }
-      taskDBLoca.inventarios.push(contex)
+      taskDBLoca.herramientas.push(contex)
     }
     buildingInventario()
   }

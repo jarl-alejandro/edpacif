@@ -17,6 +17,7 @@ orden.fin_count = 0
 orden.type_herramienta = false
 orden.type_repuestos = false
 orden.aguajeDepende = false
+orden.enviarFin = 0
 
 OrdenesTrabajo.prototype.showForm = function () {
   $("#botoneraOrdenTrabajo").slideUp()  
@@ -25,6 +26,10 @@ OrdenesTrabajo.prototype.showForm = function () {
 }
 
 OrdenesTrabajo.prototype.terminarOrden = function (id) {
+  if (orden.fin.length == 0) {
+    alerta("Debe ingresar los tiempos")
+    return false
+  }
   $.ajax({
     type: "POST",
     url: "service/terminar.php",
@@ -203,6 +208,7 @@ OrdenesTrabajo.prototype.ShowOrden = function (id) {
       var item = snap.fin[i]
       var object = { hora: item.doff_hor_doff, fecha: item.doff_fet_doff}
       orden.fin.push(object)
+      orden.editar = true
     }
 
     this.buildingDateTime("inicio")
@@ -330,7 +336,9 @@ OrdenesTrabajo.prototype.buildingDateTime = function (type) {
   if(type === "inicio") dateTime = orden.inicio
   if(type === "fin"){
     dateTime = orden.fin
-    if (orden.fin.length > 0) orden.fin_count = 1
+    if (orden.fin.length > 0) {
+      orden.fin_count = 1
+    } 
     $(".showFormTime").fadeOut()
   }
 
@@ -384,20 +392,22 @@ OrdenesTrabajo.prototype.ordenFinDateTime = function () {
     alerta("Pofavor ingrese el fin de fecha")
     return false
   }
-
-  var id = $("#id_orden").val()
-
-  $.ajax({
-    type: "POST",
-    url: "service/finFecha.php",
-    data: { fin: orden.fin, id, estado: orden.editar }
-  })
-  .done(function (snap) {
-    console.log(snap)
-    if(snap == 2){
-      alertaInfo("Se ha guardado con exito")
-    }
-  })
+  if(orden.fin.length === 1) {
+    var id = $("#id_orden").val()
+    $.ajax({
+      type: "POST",
+      url: "service/finFecha.php",
+      data: { fin: orden.fin, id, estado: orden.editar }
+    })
+    .done(function (snap) {
+      console.log(snap)
+      if(snap == 2){
+        orden.editar = true
+        orden.enviarFin = 1
+        alertaInfo("Se ha guardado con exito")
+      }
+    })
+  }
   
 }
 
