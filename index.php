@@ -2,7 +2,7 @@
   include "conexion/conexion.php";
 
   if(isset($_SESSION["3188768e18a5c00164bbe22d1749a30e4626a114"])){
-    header("Location: empleado");
+    header("Location: home");
   }
 
   $empleados = $pdo->query("SELECT * FROM sgmeempl");
@@ -53,7 +53,7 @@
     $paramQu = $pdo->query("INSERT INTO sgmeparam (eparam_id_eparam, eparam_cont_aguajes,
        eparam_cont_bodega, eparam_cont_invent, eparam_cont_img, eparam_cont_cargo, eparam_cont_prove,
        eparam_cont_orden, eparam_cont_tarea, eparam_cont_ped, eparam_cont_ruta, eparam_cont_tacom,
-       eparam_cont_orin) 
+       eparam_cont_orin)
        VALUES (1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)");
 
   }

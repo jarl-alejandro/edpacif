@@ -19,7 +19,7 @@ class PDF extends FPDF {
     $estado = $row['etare_esr_etare'];
 
     if($estado == 0) {
-      $pdo->query("UPDATE sgmetare SET etare_esr_etare='1' 
+      $pdo->query("UPDATE sgmetare SET etare_esr_etare='1'
                     WHERE etare_cod_etare='$tareaId'");
     }
 
@@ -126,7 +126,7 @@ $pdf->Cell(260, 6.5, utf8_decode("DETALLE: " . $fetch['ltare_det_ltare']), 0, 'C
 $pdf->Ln(4);
 
 if($fetch['etare_est_etare'] == "finalizado" || $fetch['etare_est_etare'] == "revisado"){
-  $pdf->Cell(260, 6.5, utf8_decode("OBSERVACION: " . $fetch['eorin_inf_eorin']), 0, 'C');
+  $pdf->Cell(260, 6.5, utf8_decode("OBSERVACION: " . $fetch['etare_inf_etare']), 0, 'C');
 }
 
 

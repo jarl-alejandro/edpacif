@@ -9,7 +9,7 @@ date_default_timezone_set('America/Guayaquil');
 class PDF extends FPDF {
 
   function Header() {
-    $this->Image('../../assets/img/logo.png', 0, 0, 210, 42);    
+    $this->Image('../../assets/img/logo.png', 0, 0, 210, 42);
 
     $this->SetFont('Arial', 'B', 15);
     $this->SetTextColor(0, 0, 0);
@@ -104,6 +104,12 @@ $pdf -> SetX(10);
 $pdf->Cell(260, 6.5, utf8_decode("DETALLE: " . $fetch['eorin_det_eorin']), 0, 'C');
 $pdf->Ln(4);
 
+
+if($fetch['eorin_mot_eorin'] != ""){
+  $pdf->Cell(260, 6.5, utf8_decode("MOTIVO: " . $fetch['eorin_mot_eorin']), 0, 'C');
+  $pdf->Ln(4);
+}
+
 if($fetch['eorin_est_eorin'] == "finalizado" || $fetch['eorin_est_eorin'] == "revisado"){
   $pdf->Cell(260, 6.5, utf8_decode("OBSERVACION: " . $fetch['eorin_obs_eorin']), 0, 'C');
 }
@@ -158,12 +164,12 @@ if($herramientas->rowCount() == 0) {
 while ($detail = $herramientas->fetch()) {
   $suma = $detail["doih_cant_doih"] * $detail["doih_pric_doih"];
   $total_herramientas = $total_herramientas + $suma;
-  
+
   $pdf->Cell(20, 6.5, $detail["eherr_cod_eherr"], 1, 'C');
   $pdf->Cell(20, 6.5, $detail["doih_cant_doih"], 1, 'C');
   $pdf->Cell(100, 6.5, utf8_decode($detail["eherr_det_eherr"]), 1, 'C');
   $pdf->Cell(30, 6.5, $detail["doih_pric_doih"], 1, 'C');
-  
+
   $pdf->Cell(20, 6.5, number_format($suma, 2), 1, 'C');
   $pdf->Ln();
 }
@@ -219,14 +225,14 @@ $valorHora = $sueldo/$diasMes;
 $subtotal = 0;
 
 
-  for ($i=0; $i < count($fechasInicio); $i++) { 
+  for ($i=0; $i < count($fechasInicio); $i++) {
     $dateStart = $fechasInicio[$i];
     $dateEnd = $fechasFinal[$i];
 
-    $dteDiff  = $dateStart->diff($dateEnd);   
+    $dteDiff  = $dateStart->diff($dateEnd);
     $format = $dteDiff->format("%I");
     $formatPresent = $dteDiff->format("%H:%I:%S");
-    
+
     $segundos = $dteDiff->format("%S");
     $minutos = $dteDiff->format("%I");
     $horas = $dteDiff->format("%H") * 60;
@@ -240,7 +246,7 @@ $subtotal = 0;
     $pdf->Cell(40, 6.5, $formatPresent, 1, 'C');
     $pdf->Cell(40, 6.5, $valorHoraWork, 1, 'C');
     $pdf->Ln();
-    
+
     $pdf->Cell(40, 6.5, 'REPUESTOS', 1, 'C');
     $pdf->Cell(40, 6.5, number_format($total_repuestos, 2), 1, 'C');
     $pdf->Cell(40, 6.5, number_format($total_repuestos, 2), 1, 'C');
@@ -273,13 +279,13 @@ $subtotal = 0;
   $pdf->Cell(40, 6.5, number_format($iva_pagar, 2), 1, 'C');
   $pdf->Ln();
 
-  $total = $iva + $subtotal;
+  $total = $iva_pagar + $subtotal;
   $pdf->setX(50);
   $pdf->Cell(40, 6.5, "TOTAL", 1, 'C');
   $pdf->Cell(40, 6.5, number_format($total, 2), 1, 'C');
   $pdf->Ln();
-  
-} 
+
+}
 
 
 

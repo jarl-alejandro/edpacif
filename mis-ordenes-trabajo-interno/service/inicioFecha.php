@@ -5,6 +5,7 @@ date_default_timezone_set('America/Guayaquil');
 $id = $_POST["id"];
 $inicio = $_POST["inicio"];
 
+
 $iniQuery = $pdo->prepare("INSERT INTO sgmedofi (dofi_cod_dofi, dofi_fet_dofi, dofi_hor_dofi) VALUES (?, ? ,?)");
 
 foreach($inicio as $fechaIni) {

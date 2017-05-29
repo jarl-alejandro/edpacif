@@ -3,7 +3,14 @@ var inventarios = []
 ;(function () {
 	'use strict'
 
-  $( '.datepicker' ).pickadate({})
+  $( '.datepicker' ).pickadate({
+  	 labelMonthNext: 'Siguienre mes',
+	  labelMonthPrev: 'Mes anterior',
+	  labelMonthSelect: 'Selecione el mes',
+	  labelYearSelect: 'Selecione el año',
+	  selectMonths: true,
+	  selectYears: true
+  })
 
 	$(".cards-container").load("template/table.php")
 
@@ -32,7 +39,7 @@ var inventarios = []
 
 	$("#esCheckedVehiculo").on('change', function () {
 		var esCheck = document.getElementById("esCheckedVehiculo").checked
-		
+
 		if(esCheck == true) {
 			$("#equipoModal").fadeOut()
 			$("#vehiculoModal").fadeIn()
@@ -118,16 +125,18 @@ var inventarios = []
 		$(".titutlo-informacion").html("Informacion del equipo")
 		$("#InformacionEquipo").addClass("panel-primary")
 		$("#InformacionEquipo").removeClass("panel-warning")
+		$('.informacioEQ').html('equipo')
 	}
 
 	function vehiculoModal (e) {
-		e.preventDefault()		
+		e.preventDefault()
 		$(".containerVehiculo").slideDown()
 		vehiculoBox.checked = true
 		$(".titutlo-informacion").html("Informacion del vehiculo")
 		$("#InformacionEquipo").slideDown()
 		$("#InformacionEquipo").addClass("panel-warning")
 		$("#InformacionEquipo").removeClass("panel-primary")
+		$('.informacioEQ').html('vehiculo')
 	}
 
 	function handleInfoEquipo () {
@@ -174,14 +183,14 @@ var inventarios = []
 		formData.append("inputPlaca", $inputPlaca.val() || "")
 		formData.append("inputSerieChasis", $inputSerieChasis.val() || "")
 		formData.append("inputSerieMotor", $inputSerieMotor.val() || "")
-		
+
 		return formData
 	}
 
 	function cancelarForm () {
 		$("#form-quipos").slideUp()
 		$("#imagen_name").val("")
-		
+
     $id.val("")
 		$kilo.val("")
 		$proveedor.val("")
@@ -208,12 +217,12 @@ var inventarios = []
 		$inputSerieChasis.val("")
 		$inputSerieMotor.val("")
 		vehiculoBox.checked = false
-		
+
     var imagenEquipo = document.querySelector(".imagen__equipo")
 		imagenEquipo.src = ""
-		
+
     $(".containerVehiculo").slideUp()
-		
+
 		activeKilometros = false
 		activeHoras = true
 		document.getElementById("esCheckedVehiculo").checked = true
@@ -236,7 +245,7 @@ var inventarios = []
 		if(flag == true) {
       		var area = localStorage.getItem('area')
       		var subarea = localStorage.getItem('subarea')
-      		$("#containerSubArea").load(`template/subarea.php?id=${area}`, 
+      		$("#containerSubArea").load(`template/subarea.php?id=${area}`,
 				function () {
 		    		$("#subarea").val(subarea)
 		    		$subarea = $("#subarea")
@@ -362,22 +371,25 @@ var inventarios = []
 		var id = e.currentTarget.dataset.id
 		var producto = e.currentTarget.dataset.producto
 		var price = e.currentTarget.dataset.price
+		var cantProd = e.currentTarget.dataset.cant
 
 		if(localStorage.state == "true"){
 			inventarios = JSON.parse(localStorage.getItem('inventarios'))
 		}
 
-
 		var cant = $(`#cant${id}`)
 
 		if(cant.val() === "" || cant.val() == 0){
-			alerta("Porfavor ingrese la cantidad")
 			cant.focus()
+			alerta("Porfavor ingrese la cantidad")
+			return false
+		}
+		if (cantProd <= 0) {
+			alerta(`No tiene mas ${producto} en inventario`)
 			return false
 		}
 		if(validInventario(id, cant.val())){
 			var total = parseFloat(price) * parseInt(cant.val())
-
 			var contex = {
 				id: id,
 				producto: producto,
@@ -456,7 +468,7 @@ var inventarios = []
         console.log(snap)
         if (snap == 2) {
           alertaInfo("Se ha dado de bajo con exito")
-          $(".cards-container").load("template/table.php")          
+          $(".cards-container").load("template/table.php")
           handleCancelarBaja()
           cancelarForm()
         }

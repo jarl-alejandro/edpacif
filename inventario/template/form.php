@@ -1,3 +1,4 @@
+<input type="hidden" id="inventEdit" />
 <div class="panel panel-info">
   <div class="panel-heading">
     <h3 class="panel-title text-center titulo">Registrar nueva inventario</h3>
@@ -11,21 +12,19 @@
         <div class="form-group">
           <label for="detalle" class="col-md-4 control-label">Producto</label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="producto" id="producto"
+            <input type="text" class="form-control desabilitar" name="producto" id="producto"
               placeholder="Motor" maxlength="80">
           </div>
         </div>
       </div>
       <div class="col-xs-9">
         <div class="form-group">
-          <label for="disponibilidad" class="col-md-4 control-label">Disponibilidad</label>
+          <label for="disponibilidad" class="col-md-4 control-label">Disponibilidad</label>
           <div class="col-md-8">
 						<select id="disponibilidad" class="form-control" name="disponibilidad">
 							<option value="Si">Si</option>
 							<option value="No">No</option>
 						</select>
-            <!--<input type="text" class="form-control" name="disponibilidad"-->
-              <!--id="disponibilidad" placeholder="disponible" maxlength="80">-->
           </div>
         </div>
       </div>
@@ -33,7 +32,7 @@
         <div class="form-group">
           <label for="unidad" class="col-md-4 control-label">Unidad</label>
           <div class="col-md-8">
-						<select name="unidad" id="unidad" class="form-control">
+						<select name="unidad" id="unidad" class="form-control desabilitar">
 							<option value="UN">UN</option>
 							<option value="JP">JP</option>
 							<option value="PI">PI</option>
@@ -49,7 +48,7 @@
         <div class="form-group">
           <label for="max" class="col-md-4 control-label">Maximo</label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="max"
+            <input type="text" class="form-control desabilitar" name="max"
               id="max" placeholder="900" maxlength="5"
               onkeypress="ValidaSoloNumeros()">
           </div>
@@ -59,7 +58,7 @@
         <div class="form-group">
           <label for="min" class="col-md-4 control-label">Minimo</label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="min"
+            <input type="text" class="form-control desabilitar" name="min"
               id="min" placeholder="90" maxlength="5"
               onkeypress="ValidaSoloNumeros()">
           </div>
@@ -69,7 +68,7 @@
         <div class="form-group">
           <label for="cant" class="col-md-4 control-label">Cantidad</label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="cant"
+            <input type="text" class="form-control desabilitar" name="cant"
               id="cant" placeholder="500" maxlength="5"
               onkeypress="ValidaSoloNumeros()">
           </div>
@@ -80,7 +79,7 @@
         <div class="form-group">
           <label for="costo" class="col-md-4 control-label">Costo</label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="costo"
+            <input type="text" class="form-control desabilitar" name="costo"
               id="costo" placeholder="costo" maxlength="8" onkeypress="ValidaSoloDecimal()">
           </div>
         </div>
@@ -90,7 +89,7 @@
         <div class="form-group">
           <label for="bodega" class="col-md-4 control-label">Bodega</label>
           <div class="col-md-8">
-            <select class="form-control" name="bodega" id="bodega">
+            <select class="form-control desabilitar" name="bodega" id="bodega">
               <option value="">Selecione bodega</option>
               <?php
               $departamento = $pdo->query("SELECT * FROM sgmebod");

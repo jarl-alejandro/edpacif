@@ -35,16 +35,18 @@
     var id = e.currentTarget.dataset.id
     var producto = e.currentTarget.dataset.producto
     var price = e.currentTarget.dataset.price
+    var cantProducto = e.currentTarget.dataset.cant
 
-    ordenesTrabajo.addInventario(id, producto, price)
+    ordenesTrabajo.addInventario(id, producto, price, cantProducto)
   })
 
   $(".add-herr").on("click", function (e) {
     var id = e.currentTarget.dataset.id
     var producto = e.currentTarget.dataset.producto
     var price = e.currentTarget.dataset.price
+    var cantProducto = e.currentTarget.dataset.cant
 
-    ordenesTrabajo.addHerramientas(id, producto, price)
+    ordenesTrabajo.addHerramientas(id, producto, price, cantProducto)
   })
 
   $("#ordenFormTimeInicio").on("click", function (e) {

@@ -8,7 +8,6 @@
 
   function handleEdit (e) {
     var id = e.currentTarget.dataset.id
-
     $.ajax({
       type: "GET",
       data: { id },
@@ -16,20 +15,20 @@
       dataType: "JSON"
     })
     .done(function (snap) {
-      if (snap == 3) {
-        alerta("No puedo editar este recurso porque esta siendo requerido")
-        return false
+      console.log(snap)
+      if (snap.status == 3) {
+        $('.desabilitar').attr('disabled', true)
       }
       $(".titulo").html("Editar inventario")
-      $("#idCode").val(snap.einven_cod_einven)
-      $("#producto").val(snap.einven_pro_einven)
-      $("#disponibilidad").val(snap.einven_dis_einven)
-      $("#unidad").val(snap.einven_uni_einven)
-      $("#costo").val(snap.einven_cos_einven)
-      $("#bodega").val(snap.einven_bod_einven)
-      $("#max").val(snap.einven_max_einven)
-      $("#min").val(snap.einven_min_einven)
-      $("#cant").val(snap.einven_cant_einven)
+      $("#idCode").val(snap.inventarios.einven_cod_einven)
+      $("#producto").val(snap.inventarios.einven_pro_einven)
+      $("#disponibilidad").val(snap.inventarios.einven_dis_einven)
+      $("#unidad").val(snap.inventarios.einven_uni_einven)
+      $("#costo").val(snap.inventarios.einven_cos_einven)
+      $("#bodega").val(snap.inventarios.einven_bod_einven)
+      $("#max").val(snap.inventarios.einven_max_einven)
+      $("#min").val(snap.inventarios.einven_min_einven)
+      $("#cant").val(snap.inventarios.einven_cant_einven)
       $("#form-conatiner").slideDown()
     })
   }

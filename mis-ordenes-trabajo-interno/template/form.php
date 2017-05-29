@@ -206,6 +206,7 @@ $meses = array('Enero',  'Febrero',  'Marzo', 'Abril',  'Mayo',  'Junio', 'Julio
           data-id="<?= $row["eherr_cod_eherr"]?>"
           data-producto="<?= $row["eherr_det_eherr"]?>"
           data-price="<?= $row["eherr_cos_eherr"]?>"
+          data-cant="<?= $row["eherr_cant_eherr"]?>"
           >
           <i class="fa fa-cart-plus white-text" aria-hidden="true"></i>
         </button>
@@ -284,6 +285,7 @@ $meses = array('Enero',  'Febrero',  'Marzo', 'Abril',  'Mayo',  'Junio', 'Julio
           data-id="<?= $row["einven_cod_einven"]?>"
           data-producto="<?= $row["einven_pro_einven"]?>"
           data-price="<?= $row["einven_cos_einven"]?>"
+          data-cant="<?= $row["einven_cant_einven"]?>"
           >
           <i class="fa fa-cart-plus white-text" aria-hidden="true"></i>
         </button>

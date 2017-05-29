@@ -14,6 +14,12 @@ $avatar = "user_create.png";
 $password = sha1($cedula);
 
 if($id == ""){
+  $employee = $pdo->query("SELECT * FROM sgmeempl WHERE eempl_ced_eempl='$cedula'");
+  if ($employee->rowCount() > 0) {
+    echo 3;
+    return false;
+  }
+
   $employ = $pdo->prepare("INSERT INTO sgmeempl (eempl_ced_eempl, eempl_nom_eempl,
      eempl_ape_eempl, eempl_tel_eempl, eempl_dir_eempl, eempl_mai_eempl,
      eempl_suel_eempl, eempl_car_eempl, eempl_ava_eempl, eempl_cont_eempl)

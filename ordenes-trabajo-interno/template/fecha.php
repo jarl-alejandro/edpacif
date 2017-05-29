@@ -49,7 +49,7 @@
     while ($rows = $ordenes->fetch()) {
       $count++;
     ?>
-      <tr>
+    <tr>
       <td class=""><?= $count; ?></td>
       <td class=""><?= $rows["eorin_det_eorin"]; ?></td>
       <td class="space-around middle">

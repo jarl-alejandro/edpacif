@@ -18,6 +18,10 @@ class PDF extends FPDF {
     $this->Text(110, 54, 'LISTADO DE EMPLEADOS');
     $this->Ln(25);
 
+    if ($this->PageNo() > 1) {
+      $this->Ln(30);
+    }
+
   }
 
   function TablaColores($header) {
@@ -62,7 +66,7 @@ $query = $pdo->query("SELECT * FROM sgmeempl");
 while ($row = $query->fetch()) {
 
   $pdf -> SetX(5);
-  $pdf->SetFont('Arial', '',10);
+  $pdf->SetFont('Arial', '',9);
 
   $pdf->Cell(30, 6.5, $row["eempl_ced_eempl"], 1, 'C');
   $pdf->Cell(150, 6.5, utf8_decode($row["eempl_nom_eempl"]." ".$row["eempl_ape_eempl"]), 1, 'C');
@@ -70,6 +74,7 @@ while ($row = $query->fetch()) {
 
   $pdf->Ln();
 }
+
 $pdf->Ln();
 
 $pdf->Output();

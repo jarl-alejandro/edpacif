@@ -1,6 +1,10 @@
 ;(function () {
   'use strict'
 
+  var dateMin = $("#DateMin").val()
+  $( '.datepicker' ).pickadate({
+    min: dateMin
+  })
 
   var $FinFecha = $("#fin-fecha")
 
@@ -11,7 +15,7 @@
   $("#form-btn").on("click", ordenesTrabajo.showForm)
 
   $("#ordenFormAceptar").on("click", function (e) {
-    e.preventDefault()    
+    e.preventDefault()
     ordenesTrabajo.aceptarForm()
   })
 
@@ -52,7 +56,7 @@
     $("#horaDateTime").val("")
     $("#fechaDateTime").val("")
     orden.editar = false
-    $(".form__date-time").slideUp()    
+    $(".form__date-time").slideUp()
   })
 
   $("#saveDateTime").on("click", function (e) {
@@ -75,7 +79,7 @@
     $(".panel-tiempos").slideUp()
   })
 
-  
+
   $("#herramientas").on("click", function (e) {
     e.preventDefault()
     $(".panel-herramienta").slideDown()
@@ -120,17 +124,17 @@
 
     $("#horaDateTime").val("")
     $("#fechaDateTime").val("")
-    $(".form__date-time").slideUp()    
+    $(".form__date-time").slideUp()
     $("#saveDateTime").fadeIn()
     $("#updateDateTime").fadeOut()
   })
 
   $("#materialesAdd").on("click", function (e) {
-    $(".panel-inventario").slideDown()    
+    $(".panel-inventario").slideDown()
   })
 
    $(".close--inven").on("click", function () {
-    $(".panel-inventario").slideUp()    
+    $(".panel-inventario").slideUp()
   })
 
   $("#Herramientasadd").on("click", function () {
@@ -138,7 +142,7 @@
   })
 
   $("#panelHerramAceptar").on("click", function () {
-    $(".panel-listadoHerramientas").slideUp()    
+    $(".panel-listadoHerramientas").slideUp()
   })
 
   $(".close--her").on("click", function (e) {
@@ -160,7 +164,7 @@
     if(config.type === "materiales") {
       invent = orden.repuestos
       orden.type_repuestos = true
-    } 
+    }
     if(config.type === "Herramientas") {
       invent = orden.herramientas
       orden.type_herramienta = true
@@ -170,7 +174,7 @@
     ordenesTrabajo.buildingInventario(config.type)
     $('.panel-editar').slideUp()
   })
-  
+
   $("#cancelarEditMET").on('click', function (e) {
     $('.panel-editar').slideUp()
   })
@@ -206,7 +210,16 @@
   $("#ordenFormGuardar").on("click", function (e) {
     e.preventDefault()
     var id = e.currentTarget.dataset.id
+    var array = $('#fechaEntrega').val().split("-")
+    var fechaEntry = array[2]+"-"+array[1]+"-"+array[0]
 
+    if ($('#fechaEntrega').val() != "") {
+      if ( fechaEntry <= $("#fechaEmision").val()){
+        alerta('Ingrese una fecha correcta')
+        $('#fechaEntrega').focus()
+        return false
+      }
+    }
     $.ajax({
       type: "POST",
       url: "service/parcial_orden.php",
@@ -246,9 +259,17 @@
   })
 
   function validarExterna () {
+    var array = $('#fechaEntrega').val().split("-")
+    var fechaEntry = array[2]+"-"+array[1]+"-"+array[0]
+
     if($("#fechaEntrega").val() === "") {
       alerta("Ingrese la fecha de entraga")
       $("#fechaEntrega").focus()
+      return false
+    }
+    if ( fechaEntry <= $("#fechaEmision").val()){
+      alerta('Ingrese una fecha correcta')
+      $('#fechaEntrega').focus()
       return false
     }
     if($("#costoOT").val() === "") {
@@ -256,16 +277,38 @@
       $("#costoOT").focus()
       return false
     }
-    if($("#InformExterna").val() === "") {
+    if($("#InformExternaInput").val() == "") {
       alerta("Suba el informe")
       return false
     }
-    if($("#facturaExterna").val() === "") {
+    if($("#facturaExternaInput").val() == "") {
       alerta("Suba la factura")
       return false
     }
-    else return true 
+    else return true
   }
+
+  $('#diagnostico').on('change', function (e) {
+    var file = e.target.files[0]
+    if (file.size > (1024 * 1024 * 2)) {
+      alerta("No puede subir imagenes mas de 2mb")
+      $("#InformExternaInput").val('')
+      $('#diagnostico').val('')
+      return false
+    }
+    else $("#InformExternaInput").val('diagnostico')
+  })
+
+  $('#factura').on('change', function (e) {
+    var file = e.target.files[0]
+    if (file.size > (1024 * 1024 * 2)) {
+      alerta("No puede subir imagenes mas de 2mb")
+      $("#facturaExternaInput").val('')
+      $('#factura').val('')
+      return false
+    }
+    else $("#facturaExternaInput").val('factura')
+  })
 
   function getData (id) {
     var formData = new FormData()
@@ -275,7 +318,7 @@
     formData.append("id", id)
     formData.append("costo", $("#costoOT").val() || 0)
     formData.append("fecha", $("#fechaEntrega").val())
-   
+
     formData.append("is_informe", file_inform.files.length)
     formData.append("informe", file_inform.files[0])
 
@@ -285,4 +328,3 @@
   }
 
 })()
-  

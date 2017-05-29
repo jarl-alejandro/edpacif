@@ -2,6 +2,9 @@
   'use strict'
 
 	openedMantenimiento()
+  var TAREASCONST = {
+    aguajeDepende: false
+  }
 
   var $empleado = $("#empleado")
   var $equipo = $("#equipo")
@@ -22,18 +25,22 @@
   $subarea.on("change", handleFilterTask)
   $("#modalTarea").on("click", handleModalTarea)
 
+  $('#fecha').on('change', function () {
+    aguajeValid()
+  })
+
   $detalle.on("change", function () {
     document.getElementById("tareaFormChecked").checked = false
   })
 
-  $("#modalTareaForm #save").on("click", function (e) { 
+  $("#modalTareaForm #save").on("click", function (e) {
     e.preventDefault()
-    $("#modalTareaForm").slideUp()    
+    $("#modalTareaForm").slideUp()
   })
 
   function handleModalTarea (e) {
     e.preventDefault()
-    document.getElementById("tareaFormChecked").checked = true    
+    document.getElementById("tareaFormChecked").checked = true
     $("#modalTareaForm").slideDown()
   }
 
@@ -50,7 +57,7 @@
         </select>`
       $("#tareasContainer").html(template)
       $(".ocultar").fadeOut()
-    }) 
+    })
   }
 
   function handleFilterTask (e) {
@@ -62,23 +69,28 @@
       $detalle = $("#detalle")
       $(".ocultar").fadeOut()
     })
-
     var subarea = $("#subarea").val()
-    $.ajax({
-      type: "GET",
-      url: "service/aguaje.php",
-      data: { id: subarea },
-      dataType: "JSON"
-    })
-    .done(function (snap) {
-     // orden.aguajeDepende = snap.earege_agu_earege
-      console.log(snap)
-    })
+
+    aguajeValid()
 
     $("#equipoContainer").load(`template/equipos.php?subarea=${subarea}`, function () {
       $equipo = $("#equipo")
     })
-  } 
+  }
+
+  function aguajeValid() {
+    var subarea = $("#subarea").val()
+    $.ajax({
+      type: "GET",
+      url: "service/aguaje.php",
+      data: { id: subarea, fecha: $("#fecha").val() },
+      dataType: "JSON"
+    })
+    .done(function (snap) {
+      TAREASCONST.aguajeDepende = snap.earege_agu_earege
+      console.log(snap)
+    })
+  }
 
   function handleForm (e) {
     e.preventDefault()
@@ -90,20 +102,26 @@
   function handleSave (e) {
     e.preventDefault()
     if(validar()){
-      $.ajax({
-        type: "POST",
-        url: "service/guarda.php",
-        data: getData()
-      })
-      .done(function (snap) {
-        console.log(snap)
-        if(snap == 2){
-					location.href = location.pathname
-          $(".tabla-contianer").load("template/table.php")
-          $("#listTask").load("../tareas.php")
-          handlecancelar()
-        }
-      })
+
+      if(TAREASCONST.aguajeDepende == true){
+        alerta('Ingrese una fecha que no este en aguaje')
+      }
+      else {
+        $.ajax({
+          type: "POST",
+          url: "service/guarda.php",
+          data: getData()
+        })
+        .done(function (snap) {
+          console.log(snap)
+          if(snap == 2){
+  					location.href = location.pathname
+            $(".tabla-contianer").load("template/table.php")
+            $("#listTask").load("../tareas.php")
+            handlecancelar()
+          }
+        })
+      }
     }
   }
 
@@ -216,6 +234,21 @@
         equipo.value = ""
         alerta("El equipo tiene una tarea pendiente")
       }
+    })
+  })
+
+  $('#incompletoTask').on('click', function (e) {
+    e.preventDefault()
+    var id = event.currentTarget.dataset.id
+    $.ajax({
+      type: 'POST',
+      url: 'service/incompleto.php',
+      data: {id}
+    })
+    .done(function (snap) {
+      console.log(snap)
+      if (snap == 2)
+        location.reload()
     })
   })
 

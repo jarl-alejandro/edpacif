@@ -5,7 +5,7 @@ include "../../conexion/conexion.php";
 include "../../conexion/codigo.php";
 
 $id = $_POST["id"];
-$detalle = $_POST["detalle"];
+$detalle = strtoupper($_POST["detalle"]);
 $subarea = $_POST["subarea"];
 $is_imagen = $_POST["is_imagen"];
 $detalles = $_POST["detalles"];
@@ -54,13 +54,13 @@ if($id == ""){
   }
   $img_equipo = upload_image($code_image, "equipos");
 
-  $equipos = $pdo->prepare("INSERT INTO smgeequi (eequi_cod_eequi, eequi_det_eequi, 
+  $equipos = $pdo->prepare("INSERT INTO smgeequi (eequi_cod_eequi, eequi_det_eequi,
       eequi_fec_eequi, eequi_sare_eequi, eequi_emp_eequi, eequi_ima_eequi, eequi_est_eequi,
       eequi_horas_eequi, eequi_kil_eequi, eequi_prov_eequi, eequi_fcom_eequi, eequi_baja_eequi, eequi_esq_eequi)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
   $info = $pdo->prepare("INSERT INTO sgmeinfe (einfe_mod_infe, einfe_mar_infe, einfe_year_infe, einfe_nfac_infe,
-    einfe_val_infe, einfe_ser_infe, einfe_pla_infe, einfe_cha_infe, einfe_mot_infe, einfe_equi_infe) 
+    einfe_val_infe, einfe_ser_infe, einfe_pla_infe, einfe_cha_infe, einfe_mot_infe, einfe_equi_infe)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
   $cero = 0;
@@ -110,12 +110,12 @@ else{
     if($newGeneral == $subarea){
       $equipos = $pdo->query("UPDATE smgeequi SET  eequi_det_eequi='$detalle', eequi_sare_eequi='$subarea', eequi_kil_eequi='$kilometros',
         eequi_prov_eequi='$proveedor', eequi_horas_eequi='$horas', eequi_esq_eequi='$esEquipo'
-        WHERE eequi_cod_eequi='$id'");      
+        WHERE eequi_cod_eequi='$id'");
     }
     else{
       $equipos = $pdo->query("UPDATE smgeequi SET  eequi_det_eequi='$detalle', eequi_sare_eequi='$subarea', eequi_kil_eequi='$kilometros',
         eequi_prov_eequi='$proveedor', eequi_horas_eequi='$horas', eequi_cod_eequi='$codigo'
-        WHERE eequi_cod_eequi='$id'");      
+        WHERE eequi_cod_eequi='$id'");
     }
 
   }
@@ -138,7 +138,7 @@ else{
     updateCode('eparam_cont_img');
   }
 
-  $info = $pdo->query("UPDATE sgmeinfe SET einfe_mod_infe='$Model', einfe_mar_infe='$Marca', 
+  $info = $pdo->query("UPDATE sgmeinfe SET einfe_mod_infe='$Model', einfe_mar_infe='$Marca',
     einfe_year_infe='$Year', einfe_nfac_infe='$NumeriFacu', einfe_val_infe='$Valor', einfe_ser_infe='$Serie',
      einfe_pla_infe='$Placa', einfe_cha_infe='$SerieChasis', einfe_mot_infe='$SerieMotor'
      WHERE einfe_equi_infe='$id'");

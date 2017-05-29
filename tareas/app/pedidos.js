@@ -133,13 +133,13 @@
       $("#equipo").val(snap.tarea.etare_equ_etare)
       $("#fecha").val(snap.tarea.etare_fet_etare)
       $("#detalle").val(snap.tarea.etare_det_etare)
-      $("#equipo").val(snap.tarea.eequi_cod_eequi)      
+      $("#equipo").val(snap.tarea.eequi_cod_eequi)
       $("#area").val(snap.tarea.subare_are_subare)
       $("#empleado").val(snap.tarea.eempl_ced_eempl)
       $("#fecha").val(snap.tarea.etare_fet_etare)
       $("#task_id").val(snap.tarea.etare_cod_etare)
       document.querySelector(`input[value="${snap.tarea.etare_col_etare}_${snap.tarea.etare_pri_etare}"]`).checked = true
-      
+
       $("#save").slideUp()
       $("#finish").slideUp()
       $("#tableLayout").slideUp()
@@ -154,12 +154,12 @@
       var data = materiales[i]
 
       var total = parseInt(data.repta_cant_repta) * parseFloat(data.repta_pric_repta)
-      var contex = { id: data.repta_herr_repta, producto: data.einven_pro_einven, 
+      var contex = { id: data.repta_herr_repta, producto: data.einven_pro_einven,
           price: data.repta_pric_repta, total, cant: data.repta_cant_repta
       }
       taskDBLoca.inventarios.push(contex)
     }
-    buildingHerramientas()
+    buildingInventario()
   }
 
   function renderTemplateHerramientas (herramientas) {
@@ -172,7 +172,7 @@
       }
       taskDBLoca.herramientas.push(contex)
     }
-    buildingInventario()
+    buildingHerramientas()
   }
 
   //  Ingresar Herramientas de las tareas
@@ -180,15 +180,20 @@
     var id = e.currentTarget.dataset.id
     var producto = e.currentTarget.dataset.producto
     var price = e.currentTarget.dataset.price
-    addHerramientas(id, producto, price)
+    var cantProducto = e.currentTarget.dataset.cant
+    addHerramientas(id, producto, price, cantProducto)
   })
 
-  function addHerramientas (id, producto, price) {
+  function addHerramientas (id, producto, price, cantProd) {
     var cant = $(`#cant${id}`)
 
     if(cant.val() === "" || cant.val() == 0){
       alerta("Porfavor ingrese la cantidad")
       cant.focus()
+      return false
+    }
+    if (cantProd <= 0) {
+      alerta(`No tiene mas ${producto} en inventario`)
       return false
     }
     if (validHerramientas(id, cant.val()) ) {
@@ -199,7 +204,7 @@
       }
       taskDBLoca.herramientas.push(contex)
       buildingHerramientas()
-      $(".panel-listadoHerramientas").slideUp()    
+      $(".panel-listadoHerramientas").slideUp()
       $(".cant-input").val("")
     }
   }
@@ -242,8 +247,11 @@
         <td>${item.producto}</td>
         <td>${item.price}</td>
         <td>${total}</td>
-        <td><button data-index="${i}" class="btn btn-raised btn-danger ripple-effect eliminar-herr-task">
-          Eliminar</button>
+        <td>
+          <button data-index="${i}" class="btn btn-raised btn-danger ripple-effect eliminar-herr-task">
+            <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+          <button data-index="${i}" class="btn btn-raised btn-primary ripple-effect EditarHerrTask">
+            <i class="fa fa-pencil" aria-hidden="true"></i></button>
         </td>`
       $("#tableHerramientas").append(template)
     }
@@ -253,6 +261,13 @@
       taskDBLoca.herramientas.splice(index, 1)
       buildingHerramientas()
     })
+    $('.EditarHerrTask').on('click', function (e) {
+      e.preventDefault()
+      var index = e.currentTarget.dataset.index
+      $('.panel-editar').slideDown()
+      document.querySelector('#aceptarEditMET').dataset.index = index
+      document.querySelector('#aceptarEditMET').dataset.type = 'herramientas'
+    })
   }
 
   //  Ingresar Materiales de las tareas
@@ -260,15 +275,46 @@
     var id = e.currentTarget.dataset.id
     var producto = e.currentTarget.dataset.producto
     var price = e.currentTarget.dataset.price
-    addInventario(id, producto, price)
+    var cantProducto = e.currentTarget.dataset.cant
+    addInventario(id, producto, price, cantProducto)
   })
 
-  function addInventario (id, producto, price) { 
+  $('#cancelarEditMET').on('click', function () {
+    $('.panel-editar').slideUp()
+    $('#EditarHerrInv').val("")
+  })
+
+  $('#aceptarEditMET').on('click', function (e) {
+    var index = e.currentTarget.dataset.index
+    var type = e.currentTarget.dataset.type
+    if ( $('#EditarHerrInv').val() === '') {
+      alerta('Ingrese la cantidad')
+      $('#EditarHerrInv').focus()
+      return false
+    }
+    if (type == 'herramientas') {
+      taskDBLoca.herramientas[index].cant = $('#EditarHerrInv').val()
+      buildingHerramientas()
+    }
+    if (type == 'inventarios') {
+      taskDBLoca.inventarios[index].cant = $('#EditarHerrInv').val()
+      taskDBLoca.inventarios[index].total = parseInt($('#EditarHerrInv').val()) * taskDBLoca.inventarios[index].price
+      buildingInventario()
+    }
+    $('.panel-editar').slideUp()
+    $('#EditarHerrInv').val("")
+  })
+
+  function addInventario (id, producto, price, cantProd) {
     var cant = $(`#cant${id}`)
 
     if(cant.val() === "" || cant.val() == 0){
       alerta("Porfavor ingrese la cantidad")
       cant.focus()
+      return false
+    }
+    if (cantProd <= 0) {
+      alerta(`No tiene mas ${producto} en inventario`)
       return false
     }
     if (validInventario(id, cant.val()) ) {
@@ -320,16 +366,27 @@
         <td>${item.producto}</td>
         <td>${item.price}</td>
         <td>${item.total}</td>
-        <td><button data-index="${i}" class="btn btn-raised btn-danger ripple-effect eliminar-invent-task">
-          Eliminar</button>
+        <td>
+        <button data-index="${i}" class="btn btn-raised btn-danger ripple-effect eliminar-invent-task">
+          <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        <button data-index="${i}" class="btn btn-raised btn-primary ripple-effect EditarInveTask">
+            <i class="fa fa-pencil" aria-hidden="true"></i></button>
         </td>`
       $("#tablemateriales").append(template)
     }
+
     $('.eliminar-invent-task').on('click', function (e){
       e.preventDefault()
       var index = e.currentTarget.dataset.index
       taskDBLoca.inventarios.splice(index, 1)
       buildingInventario()
+    })
+    $('.EditarInveTask').on('click', function (e) {
+      e.preventDefault()
+      var index = e.currentTarget.dataset.index
+      $('.panel-editar').slideDown()
+      document.querySelector('#aceptarEditMET').dataset.index = index
+      document.querySelector('#aceptarEditMET').dataset.type = 'inventarios'
     })
   }
 
@@ -363,7 +420,7 @@
     }
     else return true
   }
-  
+
   // $("#cancelarTask").on("click", cancelarTask)
 
   // function cancelarTask (e) {

@@ -181,6 +181,7 @@ $employee = $employeQuery->fetch();
               <li><a href="../pedidos">Pedido</a></li>
               <li><a href="../rutas">Rutas</a></li>
               <li><a href="../hora-trabajo">Hora de trabajo</a></li>
+              <li><a href="../entrega-herramientas">Entrega de Herramientas</a></li>
             </ul>
           </li>
           <li class="nav-parent">

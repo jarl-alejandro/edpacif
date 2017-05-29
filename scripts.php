@@ -7,7 +7,7 @@
   </div>
   <div class="panel-body">
     <div class="col-xs-12 space-around middle">
-      <h4 class="text-center">INICIO</h4>    
+      <h4 class="text-center">INICIO</h4>
       <button class="btn__flat btn-success showFormTime-task"
         style="font-size: 16px;margin-bottom: 10px;padding: 6px 15px" data-type="inicio">
         <i class="fa fa-clock-o white-text" aria-hidden="true"></i>
@@ -24,7 +24,7 @@
           <td></td>
         </tbody>
       </table>
-      <button class="btn btn-raised btn-default" id="ordenFormTimeInicioTask">Ingresar tiempos</button>      
+      <button class="btn btn-raised btn-default" id="ordenFormTimeInicioTask">Ingresar tiempos</button>
     </div>
 
     <div class="col-xs-12 space-around middle" style="display:none">
@@ -62,7 +62,7 @@
         <input id="fechaDateTime-task"" class="form-control datepicker" placeholder="<?=$fecha?>" />
       </div>
     </div>
-    
+
     <div class="col-xs-6 middle">
       <label for="horaDateTime-task"" class="col-xs-2 control-label">Hora</label>
       <div class="col-xs-7">
@@ -154,7 +154,7 @@
       placeholder="Escribe lo que andas buscando" aria-describedby="searchHerrList" />
   </div>
   <section class="panel-body" id="Tab_FilterHermientaTask">
-    <article></article>  
+    <article></article>
     <?php
     $herramientasTask = $pdo->query("SELECT * FROM sgmeherr ORDER BY eherr_cod_eherr ASC");
     while ($row = $herramientasTask->fetch()) {
@@ -174,6 +174,7 @@
           data-id="<?= $row["eherr_cod_eherr"]?>"
           data-producto="<?= $row["eherr_det_eherr"]?>"
           data-price="<?= $row["eherr_cos_eherr"]?>"
+          data-cant="<?= $row["eherr_cant_eherr"]?>"
           >
           <i class="fa fa-cart-plus white-text" aria-hidden="true"></i>
         </button>
@@ -203,7 +204,7 @@
       placeholder="Escribe lo que andas buscando" aria-describedby="searchInventartio" />
   </div>
   <section class="panel-body" id="Tab_FilterInventarioTask">
-    <article></article>  
+    <article></article>
     <?php
     $inventario = $pdo->query("SELECT * FROM sgmeinve
                     ORDER BY einven_cod_einven ASC");
@@ -224,6 +225,7 @@
           data-id="<?= $row["einven_cod_einven"]?>"
           data-producto="<?= $row["einven_pro_einven"]?>"
           data-price="<?= $row["einven_cos_einven"]?>"
+          data-cant="<?= $row["einven_cant_einven"]?>"
           >
           <i class="fa fa-cart-plus white-text" aria-hidden="true"></i>
         </button>
@@ -240,12 +242,6 @@
 </div>
 <input type="hidden" id="id-task-work">
 <!-- /Listado de Materiales -->
-
-<script>
-
-</script>
-
-
 <!-- <script src="../lib/jquery-ui/jquery-ui.js"></script> -->
 
 <!-- <script src="../lib/morrisjs/morris.js"></script> -->

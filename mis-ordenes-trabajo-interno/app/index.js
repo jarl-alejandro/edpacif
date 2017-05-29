@@ -25,6 +25,11 @@ OrdenesTrabajo.prototype.teminarOrdenTrabajo = function () {
     alerta("Porfavor ingrese su observacion")
     return false
   }
+  if(orden.$obsevacion.val().length < 20){
+    orden.$obsevacion.focus()
+    alerta("Debe ingresar un detalle mas o igual de 20 caracteres")
+    return false
+  }
   var formData = new FormData()
   var file_image = document.getElementById("diagnostico")
 
@@ -115,11 +120,12 @@ OrdenesTrabajo.prototype.ordenInicioDateTime = function () {
       console.log(snap)
       if(snap == 2){
         orden.inicioEnviar = 1
+        $('#ordenFormSave').fadeIn()
         alertaInfo("Se ha guardado con exito")
       }
     })
   }
-  
+
 }
 OrdenesTrabajo.prototype.ordenFinDateTime = function () {
   if(orden.fin.length === 0){
@@ -140,12 +146,12 @@ OrdenesTrabajo.prototype.ordenFinDateTime = function () {
       alertaInfo("Se ha guardado con exito")
     }
   })
-  
+
 }
 OrdenesTrabajo.prototype.saveDateTime = function (type) {
   var hora = $("#horaDateTime").val()
   var fecha = $("#fechaDateTime").val()
-  
+
   if(this.validDateTime(hora, fecha)){
     var object = { fecha, hora }
 
@@ -211,12 +217,16 @@ OrdenesTrabajo.prototype.validarOrden = function () {
   else return true
 }
 
-OrdenesTrabajo.prototype.addInventario = function (id, producto, price) { 
+OrdenesTrabajo.prototype.addInventario = function (id, producto, price, cantProducto) {
   var cant = $(`#cant${id}`)
 
   if(cant.val() === "" || cant.val() == 0){
     alerta("Porfavor ingrese la cantidad")
     cant.focus()
+    return false
+  }
+  if (cantProducto <= 0) {
+    alerta(`No tiene mas ${producto} en inventario`)
     return false
   }
   if (this.validInventario(id, cant.val()) ) {
@@ -284,12 +294,16 @@ OrdenesTrabajo.prototype.buildingInventario = function () {
 }
 
 
-OrdenesTrabajo.prototype.addHerramientas = function (id, producto, price) {
+OrdenesTrabajo.prototype.addHerramientas = function (id, producto, price, cantProducto) {
   var cant = $(`#cant${id}`)
 
   if(cant.val() === "" || cant.val() == 0){
     alerta("Porfavor ingrese la cantidad")
     cant.focus()
+    return false
+  }
+  if (cantProd <= 0) {
+    alerta(`No tiene mas ${producto} en inventario`)
     return false
   }
   if (this.validHerramientas(id, cant.val()) ) {
@@ -360,7 +374,7 @@ OrdenesTrabajo.prototype.buildingHerramientas = function () {
 // OrdenesTrabajo.prototype.handleDetailDelete = function (e) {
 //   e.preventDefault()
 //   var inventarios = JSON.parse(localStorage.getItem('inventarios'))
-//   var index = e.currentTarget.dataset.index 
+//   var index = e.currentTarget.dataset.index
 //   inventarios.splice(index, 1)
 //   localStorage.setItem('inventarios', JSON.stringify(inventarios))
 //   this.buildingInventario()

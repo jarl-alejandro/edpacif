@@ -9,7 +9,7 @@
       <article class="col-xs-12">
         <div class="togglebutton">
           <label>
-            Equipo / Vehiculo 
+            Equipo / Vehiculo
             <input type="checkbox" checked="" id="esCheckedVehiculo">
           </label>
         </div>
@@ -179,7 +179,7 @@
       placeholder="Escribe lo que andas buscando" aria-describedby="searchInventartio" />
   </div>
   <section class="panel-body" id="Tab_FilterInventario">
-    <article></article>  
+    <article></article>
     <?php
     $inventario = $pdo->query("SELECT * FROM sgmeinve
                     ORDER BY einven_cod_einven ASC");
@@ -200,6 +200,7 @@
           data-id="<?= $row["einven_cod_einven"]?>"
           data-producto="<?= $row["einven_pro_einven"]?>"
           data-price="<?= $row["einven_cos_einven"]?>"
+          data-cant="<?= $row["einven_cant_einven"]?>"
           >
           <i class="fa fa-cart-plus white-text" aria-hidden="true"></i>
         </button>
@@ -222,56 +223,65 @@
   <div class="panel-body">
     <div class="col-xs-12">
       <div class="col-xs-6">
+        <label for="inputModel">Escribe el modelo del <span class="informacioEQ">equipo</span>*</label>
         <input type="text" class="form-control" id="inputModel"
-          placeholder="Escribe el modelo del equipo *">
+          placeholder="Ingresa...">
       </div>
       <div class="col-xs-6">
+       <label for="inputModel">Escribe la marca de <span class="informacioEQ">equipo</span>*</label>
         <input type="text" class="form-control" id="inputMarca"
-          placeholder="Escribe la marca del equipo *">
+          placeholder="Ingresa...">
       </div>
     </div>
 
     <div class="col-xs-12">
       <div class="col-xs-6">
+        <label for="inputModel">Escribe el año del <span class="informacioEQ">equipo</span>*</label>
         <input type="text" class="form-control" id="inputYer"
-          placeholder="Escribe el año del equipo" onkeypress="ValidaSoloNumeros()">
+          placeholder="Ingresa..." onkeypress="ValidaSoloNumeros()">
       </div>
       <div class="col-xs-6">
+        <label for="inputModel">Escribe el número de factura del *</label>
         <input type="text" class="form-control" id="inputNumeriFacu"
-          placeholder="Escribe el número de factura" onkeypress="ValidaSoloNumeros()">
+          placeholder="Ingresa..." onkeypress="ValidaSoloNumeros()">
       </div>
     </div>
 
     <div class="col-xs-12">
       <div class="col-xs-6">
+        <label for="inputModel">Escribe el valor del <span class="informacioEQ">equipo</span>*</label>
         <input type="text" class="form-control" id="inputValor"
-          placeholder="Escribe el valor del equipo" onkeypress="ValidaSoloDecimal()">
+          placeholder="Ingresa..." onkeypress="ValidaSoloDecimal()">
       </div>
       <div class="col-xs-6">
+        <label for="inputModel">Escribe la serie del <span class="informacioEQ">equipo</span>*</label>
         <input type="text" class="form-control" id="inputSerie"
-          placeholder="Escribe la serie del equipo *">
+          placeholder="Ingresa...">
       </div>
     </div>
     <div class="containerVehiculo none">
       <input type="checkbox" id="VehiculoBox" class="none">
       <div class="col-xs-12">
         <div class="col-xs-6">
+          <label for="inputModel">Escribe la placa del vehiculo *</label>
           <input type="text" class="form-control" id="inputPlaca"
-            placeholder="Escribe la placa del vehiculo *">
+            placeholder="Ingresa...">
         </div>
         <div class="col-xs-6">
+          <label for="inputModel">Escribe la serie del chasis *</label>
           <input type="text" class="form-control" id="inputSerieChasis"
-            placeholder="Escribe la serie del chasis *">
+            placeholder="Ingresa...">
         </div>
       </div>
       <div class="col-xs-12">
         <div class="col-xs-12">
+          <label for="inputModel">Escribe la serie del motor *</label>
           <input type="text" class="form-control" id="inputSerieMotor"
-              placeholder="Escribe la serie del motor *">
+              placeholder="Ingresa...">
         </div>
-      </div> 
+      </div>
     </div>
-    
+
     <div class="col-xs-12 center">
       <button class="btn btn-warning" id="InformacionEquipo--aceptar">Aceptar</button>
     </div>

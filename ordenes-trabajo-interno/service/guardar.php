@@ -16,7 +16,7 @@ $motivo = $_POST["motivo"];
 $estado = "asignado";
 
 $interna = $pdo->prepare("INSERT INTO sgmeorin (eorin_cod_eorin, eorin_emi_eorin, eorin_sub_eorin,
-  eorin_equ_eorin, eorin_emp_eorin, eorin_fet_eorin, eorin_man_eorin, eorin_det_eorin, eorin_est_eorin, eorin_mot_eorin) 
+  eorin_equ_eorin, eorin_emp_eorin, eorin_fet_eorin, eorin_man_eorin, eorin_det_eorin, eorin_est_eorin, eorin_mot_eorin)
               VALUES (?,?,?,?,?,?,?,?,?,?)");
 
 $interna->bindParam(1, $codigo);

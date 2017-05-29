@@ -18,6 +18,9 @@ class PDF extends FPDF {
     $this->Text(110, 54, 'LISTADO DE PROVEEDORES');
     $this->Ln(25);
 
+    if ($this->PageNo() > 1) {
+      $this->Ln(30);
+    }
   }
 
   function TablaColores($header) {
@@ -62,7 +65,7 @@ $query = $pdo->query("SELECT * FROM sgmepro");
 while ($row = $query->fetch()) {
 
   $pdf -> SetX(5);
-  $pdf->SetFont('Arial', '',10);
+  $pdf->SetFont('Arial', '',8);
 
   $pdf->Cell(30, 6.5, $row["eprov_cod_eprov"], 1, 'C');
   $pdf->Cell(150, 6.5, utf8_decode($row["eprov_nom_eprov"]), 1, 'C');

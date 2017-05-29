@@ -65,13 +65,13 @@
       $fin.focus()
       return false
     }
-    if(new Date($inicio.val()) > new Date($fin.val())) {
-      alerta("Porfavor el inicio del aguaje no puede ser mayor que fin del agaje")
+    if($inicio.val() == $fin.val()) {
+      alerta("Porfavor el inicio del aguaje no puede ser igual que fin del agaje")
       $fin.focus()
       return false
     }
-    if($inicio.val() == $fin.val()) {
-      alerta("Porfavor el inicio del aguaje no puede ser igual que fin del agaje")
+    if($inicio.val() > $fin.val()) {
+      alerta("Porfavor el inicio del aguaje no puede ser mayor que fin del agaje")
       $fin.focus()
       return false
     }

@@ -8,7 +8,7 @@ $hoy = date("Y/m/d");
 $count = 0;
 
 
-$tareas = $pdo->query("SELECT * FROM v_tarea 
+$tareas = $pdo->query("SELECT * FROM v_tarea
       WHERE etare_fet_etare='$hoy' AND eempl_ced_eempl='$id' AND
       (etare_est_etare='asginado' OR etare_est_etare='visto' OR etare_est_etare='pedido' OR etare_est_etare='aprobado' OR etare_est_etare='fecha')
       ORDER BY etare_pri_etare ASC");
@@ -24,7 +24,7 @@ $tareas = $pdo->query("SELECT * FROM v_tarea
     </tr>
   </thead>
   <tbody>
-    <?php while ($rows = $tareas->fetch()) { 
+    <?php while ($rows = $tareas->fetch()) {
         $count++;
     ?>
       <tr style="background:<?= $rows['etare_col_etare']; ?>;color: white;">
@@ -38,8 +38,8 @@ $tareas = $pdo->query("SELECT * FROM v_tarea
             <i class="fa fa-check" aria-hidden="true"></i>
           </button>
         <?php } else if($rows["etare_est_etare"] == 'aprobado'){ ?>
-           <button class="btn btn-raised btn-primary center button__little TareasPedidoByEmployee"
-                data-id="<?= $rows["etare_cod_etare"]; ?>">
+           <button class="btn btn-raised btn-primary center button__little TareasPedidoByEmployee materialesReporte"
+                data-id="<?= $rows["etare_cod_etare"]; ?>" data-estado="<?= $rows["etare_esr_etare"]; ?>">
             <i class="fa fa-flag-checkered" aria-hidden="true"></i>
           </button>
         <?php } else if($rows["etare_est_etare"] == 'fecha'){ ?>
@@ -59,3 +59,13 @@ $tareas = $pdo->query("SELECT * FROM v_tarea
    </tbody>
 </table>
 <script src="../assets/js/task.js"></script>
+
+<script>
+  $(".materialesReporte").on("click", function (e) {
+  var id = e.currentTarget.dataset.id
+  var estado = e.currentTarget.dataset.estado
+  if (estado != 1){
+    window.open(`../reporte/materiales.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
+  }
+})
+</script>

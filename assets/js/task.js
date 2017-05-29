@@ -30,12 +30,14 @@
     .done(function (snap) {
       console.log(snap)
       renderTemplate(snap)
+      document.getElementById('olvidarMat-task').dataset.id = id
       if (snap.etare_est_etare === "aprobado") {
         $("#herramientas-task").slideUp()
         $("#materiales-task").slideUp()
         $("#ordenFormAceptar-task").slideUp()
         $("#tiempos-task").slideDown()
         $("#terminar-task").slideUp()
+        $('#olvidarMat-task').slideDown()
       }
       if (snap.etare_est_etare === "fecha") {
         $("#herramientas-task").slideUp()
@@ -73,8 +75,8 @@
     $("#tareasContainerTask").load(`../tareas/template/detalleTask.php?id=${snap.subare_cod_subare}`, function () {
       $("#detalleTask").val(snap.ltare_cod_ltare)
     })
-    
-    $("#equipoTask").val(snap.eequi_cod_eequi)      
+
+    $("#equipoTask").val(snap.eequi_cod_eequi)
     $("#areaTask").val(snap.subare_are_subare)
     $("#empleadoTask").val(snap.eempl_ced_eempl)
     $("#fechaTask").val(snap.etare_fet_etare)

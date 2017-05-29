@@ -10,10 +10,10 @@
          id="Tab_Filter">
   <thead class="success">
     <tr>
-      <th>#</th>
-      <th>Proveedor</th>
-      <th>Contacto</th>
-      <th class="text-center space-around middle" colspan="3">
+      <th width="5%">#</th>
+      <th width="30%">Proveedor</th>
+      <th width="25%">Contacto</th>
+      <th width="100%" colspan="3" class="text-center space-around middle" colspan="3">
         <span>Acciones</span>
         <button class="btn btn-raised center derecha" id="print">
           <i class="fa fa-print" aria-hidden="true"></i>

@@ -20,6 +20,6 @@ if($valid->rowCount() > 0){
 else {
 	$row = array('earege_agu_earege'=>false);
 	$json = json_encode($row);
-	print $json;	
+	print $json;
 }
 

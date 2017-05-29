@@ -15,9 +15,12 @@ class PDF extends FPDF {
     $this->SetTextColor(0, 0, 0);
     $this->Ln(1);
     $this->Line(2, 42, 295, 42);
-    $this->Text(110, 54, 'LISTADO DE INVENTARIOS');
+    $this->Text(110, 54, 'LISTADO DE HERRAMIENTAS');
     $this->Ln(25);
 
+    if ($this->PageNo() > 1) {
+      $this->Ln(30);
+    }
   }
 
   function TablaColores($header) {
@@ -57,20 +60,20 @@ $pdf->SetX(5);
 $pdf->SetFont('Arial', '',12);
 $pdf->TablaColores($header);
 
-$query = $pdo->query("SELECT * FROM v_inventario");
+$query = $pdo->query("SELECT * FROM v_herrmientas");
 
 while ($row = $query->fetch()) {
 
   $pdf -> SetX(5);
-  $pdf->SetFont('Arial', '',10);
+  $pdf->SetFont('Arial', '', 7);
 
-  $pdf->Cell(30, 6.5, $row["einven_cod_einven"], 1, 'C');
-  $pdf->Cell(87, 6.5, utf8_decode($row["einven_pro_einven"]), 1, 'C');
+  $pdf->Cell(30, 6.5, $row["eherr_cod_eherr"], 1, 'C');
+  $pdf->Cell(87, 6.5, utf8_decode($row["eherr_det_eherr"]), 1, 'C');
   $pdf->Cell(87, 6.5, utf8_decode($row['ebod_det_ebod']), 1, 'C');
-  $pdf->Cell(20, 6.5, utf8_decode($row['einven_cant_einven']), 1, 'C');
-  $pdf->Cell(20, 6.5, utf8_decode($row['einven_max_einven']), 1, 'C');
-  $pdf->Cell(20, 6.5, utf8_decode($row['einven_min_einven']), 1, 'C');
-  $pdf->Cell(20, 6.5, utf8_decode($row['einven_cos_einven']), 1, 'C');
+  $pdf->Cell(20, 6.5, utf8_decode($row['eherr_cant_eherr']), 1, 'C');
+  $pdf->Cell(20, 6.5, utf8_decode($row['eherr_max_eherr']), 1, 'C');
+  $pdf->Cell(20, 6.5, utf8_decode($row['eherr_min_eherr']), 1, 'C');
+  $pdf->Cell(20, 6.5, utf8_decode($row['eherr_cos_eherr']), 1, 'C');
 
   $pdf->Ln();
 }

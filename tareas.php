@@ -7,7 +7,7 @@ $hoy = date("Y/m/d");
 date_default_timezone_set('America/Guayaquil');
 $fecha = date("d/m/Y");
 
-$tareas = $pdo->query("SELECT * FROM v_tarea 
+$tareas = $pdo->query("SELECT * FROM v_tarea
       WHERE etare_fet_etare='$hoy' AND eempl_ced_eempl='$id' AND
       (etare_est_etare='asginado' OR etare_est_etare='visto' OR etare_est_etare='pedido' OR etare_est_etare='aprobado' OR etare_est_etare='fecha')
       ORDER BY etare_pri_etare ASC");
@@ -35,7 +35,7 @@ else if($tareas->rowCount() == 1){
         </button>
       <?php } else if($rows["etare_est_etare"] == 'aprobado'){ ?>
          <button class="btn btn-raised btn-primary center button__little TareasPedidoByEmployee materialesReporte"
-              data-id="<?= $rows["etare_cod_etare"]; ?>">
+              data-id="<?= $rows["etare_cod_etare"]; ?>" data-estado="<?= $rows["etare_esr_etare"]; ?>">
           <i class="fa fa-flag-checkered" aria-hidden="true"></i>
         </button>
       <?php } else if($rows["etare_est_etare"] == 'fecha'){ ?>
@@ -85,7 +85,7 @@ else{?>
                 <?php
                 $area = $pdo->query("SELECT * FROM sgmearea ORDER BY earea_cod_earea ASC");
                 while ($row = $area->fetch()) { ?>
-                  <option value="<?=$row['earea_cod_earea']?>"><?=$row['earea_det_earea']?></option>               
+                  <option value="<?=$row['earea_cod_earea']?>"><?=$row['earea_det_earea']?></option>
                 <?php } ?>
               </select>
             </div>
@@ -118,7 +118,7 @@ else{?>
                 <?php } ?>
               </select>
             </div>
-          </div>    
+          </div>
         </div>
 
         <div class="col-xs-6">
@@ -136,18 +136,18 @@ else{?>
                 <?php } ?>
               </select>
             </div>
-          </div>    
+          </div>
         </div>
 
         <div class="col-xs-6 col-xs-offset-3">
           <div class="form-group">
             <label for="fecha" class="col-md-2 control-label">Fecha</label>
             <div class="col-md-10">
-              <input type="text" class="form-control datepicker" id="fechaTask" 
+              <input type="text" class="form-control datepicker" id="fechaTask"
               placeholder="<?=$fecha?>" name="fecha">
             </div>
-          </div>        
-        </div>     
+          </div>
+        </div>
 
         <div class="col-xs-12">
           <div class="form-group">
@@ -183,7 +183,7 @@ else{?>
           <div class="col-xs-4">
             <div class="radio radio-primary">
               <label>
-                <input type="radio" name="prioridad" class="prioridad" 
+                <input type="radio" name="prioridad" class="prioridad"
                       value="#4CAF50_2_task">
                 Medio
               </label>
@@ -212,6 +212,7 @@ else{?>
         <button class="btn btn-raised btn-warning" id="herramientas-task">Herramientas</button>
         <button class="btn btn-raised btn-success" id="materiales-task">Materiales</button>
         <button class="btn btn-raised btn-primary none" id="tiempos-task">Tiempos</button>
+        <button class="btn btn-raised btn-primary none" id="olvidarMat-task">Olvar Materiales</button>
         <button class="btn btn-raised btn-primary none" id="terminar-task">Terminar</button>
 
         <button class="btn btn-raised btn-default" id="ordenFormAceptar-task">Ingresar Herramientas y Repuestos</button>
@@ -252,7 +253,7 @@ $("#terminar-task").on('click', function (e) {
   .done(function (snap) {
     console.log(snap)
     if (snap == 201)
-      window.open(`../tareas/reporte/individual.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")    
+      window.open(`../tareas/reporte/individual.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
       alertaInfo("Ha terminado la tarea espere a aque el se revisada")
       $(".panel-tiempos-task").slideUp()
       $("#listTask").load("../tareas.php")
@@ -266,16 +267,20 @@ $(".add-herr-task").on("click", function (e) {
   var id = e.currentTarget.dataset.id
   var producto = e.currentTarget.dataset.producto
   var price = e.currentTarget.dataset.price
-  addHerramientasTask(id, producto, price)
+  var cantProd = e.currentTarget.dataset.cant
+  addHerramientasTask(id, producto, price, cantProd)
 })
 
-function addHerramientasTask (id, producto, price) {
-  console.log(id)
+function addHerramientasTask (id, producto, price, cantProd) {
   var cant = $(`#cant${id}_task`)
 
   if(cant.val() === "" || cant.val() == 0){
     alerta("Porfavor ingrese la cantidad")
     cant.focus()
+    return false
+  }
+  if (cantProd <= 0) {
+    alerta(`No tiene mas ${producto} en inventario`)
     return false
   }
   if (validHerramientasTask(id, cant.val()) ) {
@@ -286,7 +291,7 @@ function addHerramientasTask (id, producto, price) {
     }
     taskDB.herramientas.push(contex)
     buildingHerramientasTask()
-    $(".panel-listadoHerramientas-task").slideUp()    
+    $(".panel-listadoHerramientas-task").slideUp()
     $(".cant-input").val("")
   }
 }
@@ -338,15 +343,20 @@ $(".add-inve-task").on("click", function (e) {
   var id = e.currentTarget.dataset.id
   var producto = e.currentTarget.dataset.producto
   var price = e.currentTarget.dataset.price
-  addInventarioTask(id, producto, price)
+  var cantProd = e.currentTarget.dataset.cant
+  addInventarioTask(id, producto, price, cantProd)
 })
 
-function addInventarioTask (id, producto, price) { 
+function addInventarioTask (id, producto, price, cantProd) {
   var cant = $(`#cant${id}_task`)
 
   if(cant.val() === "" || cant.val() == 0){
     alerta("Porfavor ingrese la cantidad")
     cant.focus()
+    return false
+  }
+  if (cantProd <= 0) {
+    alerta(`No tiene mas ${producto} en inventario`)
     return false
   }
   if (validInventarioTask(id, cant.val()) ) {
@@ -501,7 +511,7 @@ $('#ordenFormTimeInicioTask').on('click', function (e) {
         $("#TareasAll").load("../task_table.php")
       }
     })
-    
+
   }
   else alerta("Ya subio la fecha de inicial")
 })
@@ -537,7 +547,23 @@ function buildingDateTimeTask () {
 
 $(".materialesReporte").on("click", function (e) {
   var id = e.currentTarget.dataset.id
-  window.open(`../reporte/materiales.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")    
+  var estado = e.currentTarget.dataset.estado
+  if (estado != 1){
+    window.open(`../reporte/materiales.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
+  }
+})
+$('#olvidarMat-task').on('click', function (e) {
+  e.preventDefault()
+  var id = e.currentTarget.dataset.id
+  $.ajax({
+    type: 'POST',
+    url: '../tareas/service/olvidarMatreiales.php',
+    data: {id}
+  })
+  .done(function (snap) {
+    console.log(snap)
+    closeFomrTask()
+  })
 })
 // /Tiempos
 </script>

@@ -6,6 +6,9 @@ $id = $_POST["id"];
 $inicio = array();
 $fin = array();
 
+$herramientas = array();
+$repuestos = array();
+
 $interna = $pdo->query("SELECT * FROM sgmeorin WHERE eorin_cod_eorin='$id'");
 $row = $interna->fetch();
 
@@ -20,6 +23,18 @@ while($finRow = $finQuery->fetch()){
   $fin[] = $finRow;
 }
 
-$json = array("inicio"=>$inicio, "fin"=>$fin, "orden"=>$row);
+$herrQuery = $pdo->query("SELECT * FROM v_herramientas_orden WHERE doih_cod_doih='$id'");
+$repQuery = $pdo->query("SELECT * FROM v_repuestos WHERE doir_cod_doir='$id'");
+
+while($herrRow = $herrQuery->fetch()){
+  $herramientas[] = $herrRow;
+}
+
+while($repRow = $repQuery->fetch()){
+  $repuestos[] = $repRow;
+}
+
+
+$json = array("inicio"=>$inicio, "fin"=>$fin, "orden"=>$row, "herramientas"=>$herramientas, "repuestos"=>$repuestos);
 
 print json_encode($json);

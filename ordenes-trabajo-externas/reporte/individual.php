@@ -13,7 +13,7 @@ class PDF extends FPDF {
     $this->Image('../../assets/img/logo.png', 0, 0, 300, 42);
 
     $impr = false;
-    
+
     if(isset($_GET["impr"]) ){
       $impr = true;
     }
@@ -94,7 +94,7 @@ $pdf->SetFont('Arial', '', 8);
 
 $id = $_GET["id"];
 
-$query = $pdo->query("SELECT * FROM v_externa 
+$query = $pdo->query("SELECT * FROM v_externa
   JOIN sgmeinfe ON eequi_cod_eequi=einfe_equi_infe
   WHERE eorex_cod_eorex='$id'");
 
@@ -141,7 +141,21 @@ $pdf->SetX(140);
 $pdf->Cell(50, 6.5, utf8_decode("SERIE DE EQUIPO"), 1, 'C');
 $pdf->Cell(50, 6.5, utf8_decode($fetch['einfe_ser_infe']), 1, 'C');
 
-$pdf->Ln(10);
+$pdf->Ln();
+
+if($fetch['eorex_est_eorex'] == 'terminar') {
+  $pdf->SetX(140);
+
+  $pdf->Cell(50, 6.5, utf8_decode("FECHA DE RECEPCION"), 1, 'C');
+  $pdf->Cell(50, 6.5, utf8_decode($fetch['eorex_ffe_eorex']), 1, 'C');
+  $pdf->Ln();
+  $pdf->SetX(140);
+
+  $pdf->Cell(50, 6.5, utf8_decode("COSTO DE REPARACION"), 1, 'C');
+  $pdf->Cell(50, 6.5, utf8_decode($fetch['eorex_cos_eorex']), 1, 'C');
+}
+
+$pdf->Ln();
 
 $pdf->SetFont('Arial', 'B', 10);
 

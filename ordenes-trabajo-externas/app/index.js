@@ -19,7 +19,7 @@ orden.type_repuestos = false
 orden.aguajeDepende = false
 
 OrdenesTrabajo.prototype.showForm = function () {
-  $("#botoneraOrdenTrabajo").slideUp()  
+  $("#botoneraOrdenTrabajo").slideUp()
   $(".form__layout").slideDown()
   $(".tabla-contianer").slideUp()
 }
@@ -80,7 +80,7 @@ OrdenesTrabajo.prototype.saveOrdenInterna = function () {
 
 OrdenesTrabajo.prototype.closeForm = function () {
   $(".form__layout").slideUp()
-  $("#ordenFormAprobar").slideUp()  
+  $("#ordenFormAprobar").slideUp()
   $(".tabla-contianer").slideDown()
   $("#ver_diagnosticos").slideUp()
   $("#containerObse").slideUp()
@@ -172,6 +172,11 @@ OrdenesTrabajo.prototype.validarOrden = function () {
     alerta("Porfavor escriba el detalle de la orden de trabajo")
     return false
   }
+  if(orden.$detalle.val().length < 20){
+    orden.$detalle.focus()
+    alerta("El detalle debe ser mas de 20 caracteres")
+    return false
+  }
   else return true
 }
 
@@ -205,7 +210,7 @@ OrdenesTrabajo.prototype.ShowOrden = function (id) {
     })
     $("#subarea").val(snap.orden.eorin_sub_eorin)
     $("#proveedor").val(snap.orden.eorin_emp_eorin)
-    
+
     $("#detalle").val(snap.orden.eorin_det_eorin)
     $("#fechaEmision").val(snap.orden.eorin_fet_eorin)
     $("#id_orden").val(snap.orden.eorin_cod_eorin)
@@ -234,7 +239,7 @@ OrdenesTrabajo.prototype.ShowOrden = function (id) {
     $("#botoneraOrdenTrabajo").slideDown()
     $(".form__layout").slideDown()
     $(".tabla-contianer").slideUp()
-    
+
   }.bind(this))
 }
 
@@ -256,7 +261,7 @@ OrdenesTrabajo.prototype.showPedido = function (id) {
 
     })
     $("#subarea").val(snap.orden.eorex_sub_eorex)
-    $("#proveedor").val(snap.orden.eorex_emp_eorex)
+    $("#proveedor").val(snap.orden.eorex_prov_eorex)
     $("#detalle").val(snap.orden.eorex_det_eorex)
     $("#fechaEmision").val(snap.orden.eorex_fet_eorex)
     $("#id_orden").val(snap.orden.eorex_cod_eorex)
@@ -265,9 +270,9 @@ OrdenesTrabajo.prototype.showPedido = function (id) {
 
     $("#fechaEntrega").val(snap.orden.eorex_ffe_eorex)
     $("#costoOT").val(snap.orden.eorex_cos_eorex)
-    
-    $("#facturaExternaInput").val("snap.orden.eorex_fact_eorex")
-    $("#InformExternaInput").val("snap.orden.eorex_infor_eorex")
+
+    $("#facturaExternaInput").val(snap.orden.eorex_fact_eorex)
+    $("#InformExternaInput").val(snap.orden.eorex_infor_eorex)
 
     $("#subarea").attr("disabled", true)
     $("#proveedor").attr("disabled", true)
@@ -292,7 +297,7 @@ OrdenesTrabajo.prototype.showPedido = function (id) {
     // $("#ordenFormAceptar").slideUp()
     // $("#botoneraOrdenTrabajo").slideDown()
     // $("#ordenFormAprobar").slideDown()
-    
+
     $(".form__layout").slideDown()
     $(".tabla-contianer").slideUp()
   }.bind(this))
@@ -326,7 +331,7 @@ OrdenesTrabajo.prototype.buildingInventario = function (type) {
     if(type === "materiales") {
       invent = orden.repuestos
       orden.type_repuestos = true
-    } 
+    }
     if(type === "Herramientas") {
       invent = orden.herramientas
       orden.type_herramienta = true
@@ -374,7 +379,7 @@ OrdenesTrabajo.prototype.buildingDateTime = function (type) {
 OrdenesTrabajo.prototype.saveDateTime = function (type) {
   var hora = $("#horaDateTime").val()
   var fecha = $("#fechaDateTime").val()
-  
+
   if(this.validDateTime(hora, fecha)){
     var object = { fecha, hora }
 
@@ -424,11 +429,11 @@ OrdenesTrabajo.prototype.ordenFinDateTime = function () {
       alertaInfo("Se ha guardado con exito")
     }
   })
-  
+
 }
 
 
-OrdenesTrabajo.prototype.addInventario = function (id, producto, price) { 
+OrdenesTrabajo.prototype.addInventario = function (id, producto, price) {
   var cant = $(`#cant${id}inv`)
 
   if(cant.val() === "" || cant.val() == 0){

@@ -20,7 +20,7 @@ orden.aguajeDepende = false
 orden.enviarFin = 0
 
 OrdenesTrabajo.prototype.showForm = function () {
-  $("#botoneraOrdenTrabajo").slideUp()  
+  $("#botoneraOrdenTrabajo").slideUp()
   $(".form__layout").slideDown()
   $(".tabla-contianer").slideUp()
 }
@@ -88,7 +88,7 @@ OrdenesTrabajo.prototype.closeForm = function () {
   $(".form__layout").slideUp()
   $(".titulo-orden-form").html("Nueva orden de trabajo")
   $("#ordenFormIncompleto").fadeOut()
-  $("#ordenFormAprobar").slideUp()  
+  $("#ordenFormAprobar").slideUp()
   $(".tabla-contianer").slideDown()
   $("#ver_diagnosticos").slideUp()
   $("#containerObse").slideUp()
@@ -153,6 +153,11 @@ OrdenesTrabajo.prototype.validarOrden = function () {
     alerta("Porfavor escriba el detalle de la orden de trabajo")
     return false
   }
+  if(orden.$detalle.val().length < 20) {
+    orden.$detalle.focus()
+    alerta("Debe ingresar un detalle mas o igual de 20 caracteres")
+    return false
+  }
   else return true
 }
 
@@ -181,18 +186,23 @@ OrdenesTrabajo.prototype.ShowOrden = function (id) {
   })
   .done(function (snap) {
     console.log(snap)
+    $("#tiempos").slideDown()
+
     $(".titulo-orden-form").html("Orden de trabajo")
     $("#equipoContainer").load(`template/equipos.php?subarea=${snap.orden.eorin_sub_eorin}`, function () {
       $("#equipo").val(snap.orden.eorin_equ_eorin)
     })
     $("#subarea").val(snap.orden.eorin_sub_eorin)
     $("#empleado").val(snap.orden.eorin_emp_eorin)
-    
+
     $("#detalle").val(snap.orden.eorin_det_eorin)
     $("#fechaEmision").val(snap.orden.eorin_fet_eorin)
     $("#id_orden").val(snap.orden.eorin_cod_eorin)
     $("#emitidoPor").val(snap.orden.eorin_emi_eorin)
     $("#observacion").val(snap.orden.eorin_obs_eorin)
+
+    if (snap.orden.eorin_estfe_orin == '1') $('#ordenFormTerminar').fadeOut()
+    if (snap.orden.eorin_estfe_orin == '2') $('#ordenFormTerminar').fadeIn()
 
     // $("#ver_diagnosticos").attr("href", `../media/diagnostico/${snap.orden.eorin_dig_eorin}`)
 
@@ -214,10 +224,26 @@ OrdenesTrabajo.prototype.ShowOrden = function (id) {
     this.buildingDateTime("inicio")
     this.buildingDateTime("fin")
 
+    for(var i in snap.herramientas) {
+      var item = snap.herramientas[i]
+      var object = { cant: item.doih_cant_doih, detalle: item.eherr_det_eherr, price: item.doih_pric_doih, id: item.eherr_cod_eherr}
+      orden.herramientas.push(object)
+    }
+
+    for(var i in snap.repuestos) {
+      var item = snap.repuestos[i]
+      var object =  { cant: item.doir_cant_doir, detalle: item.einven_pro_einven, price: item.doir_pric_doir, id: item.einven_cod_einven}
+      orden.repuestos.push(object)
+    }
+
+    this.buildingInventario("materiales")
+    this.buildingInventario("Herramientas")
+
+
     $("#botoneraOrdenTrabajo").slideDown()
     $(".form__layout").slideDown()
     $(".tabla-contianer").slideUp()
-    
+
   }.bind(this))
 }
 
@@ -236,7 +262,7 @@ OrdenesTrabajo.prototype.showPedido = function (id) {
     })
     $("#subarea").val(snap.orden.eorin_sub_eorin)
     $("#empleado").val(snap.orden.eorin_emp_eorin)
-    
+
     $("#detalle").val(snap.orden.eorin_det_eorin)
     $("#fechaEmision").val(snap.orden.eorin_fet_eorin)
     $("#id_orden").val(snap.orden.eorin_cod_eorin)
@@ -306,7 +332,7 @@ OrdenesTrabajo.prototype.buildingInventario = function (type) {
     if(type === "materiales") {
       invent = orden.repuestos
       orden.type_repuestos = true
-    } 
+    }
     if(type === "Herramientas") {
       invent = orden.herramientas
       orden.type_herramienta = true
@@ -338,7 +364,7 @@ OrdenesTrabajo.prototype.buildingDateTime = function (type) {
     dateTime = orden.fin
     if (orden.fin.length > 0) {
       orden.fin_count = 1
-    } 
+    }
     $(".showFormTime").fadeOut()
   }
 
@@ -356,8 +382,8 @@ OrdenesTrabajo.prototype.buildingDateTime = function (type) {
 OrdenesTrabajo.prototype.saveDateTime = function (type) {
   var hora = $("#horaDateTime").val()
   var fecha = $("#fechaDateTime").val()
-  
-  if(this.validDateTime(hora, fecha)){
+
+  if(this.validDateTime(hora+":00", fecha)){
     var object = { fecha, hora }
 
     if (orden.fin_count == 0) {
@@ -374,15 +400,26 @@ OrdenesTrabajo.prototype.saveDateTime = function (type) {
 }
 
 OrdenesTrabajo.prototype.validDateTime = function (hora, fecha) {
+  var array = fecha.split("-")
+  fecha = array[2]+"-"+array[1]+"-"+array[0]
+
   if(fecha == ""){
     alerta("Porfavor ingrese la fecha")
     $("#fechaDateTime").focus()
     return false
   }
-  if(hora == "" || hora == "00:00"){
+  if(hora == "" || hora == "00:00" || hora == ":00"){
     alerta("Porfavor ingrese la hora")
     $("#horaDateTime").focus()
     return false
+  }
+  if (orden.inicio[0].fecha == fecha) {
+    if (orden.inicio[0].hora >= hora) {
+      alerta("Porfavor ingrese la hora correcta")
+      $("#horaDateTime").focus()
+      return false
+    }
+    else return true
   }
   else return true
 }
@@ -404,20 +441,23 @@ OrdenesTrabajo.prototype.ordenFinDateTime = function () {
       if(snap == 2){
         orden.editar = true
         orden.enviarFin = 1
+         $('#ordenFormTerminar').fadeIn()
         alertaInfo("Se ha guardado con exito")
       }
     })
   }
-  
 }
 
-
-OrdenesTrabajo.prototype.addInventario = function (id, producto, price) { 
+OrdenesTrabajo.prototype.addInventario = function (id, producto, price, cantProd) {
   var cant = $(`#cant${id}inv`)
 
   if(cant.val() === "" || cant.val() == 0){
     alerta("Porfavor ingrese la cantidad")
     cant.focus()
+    return false
+  }
+  if (cantProd <= 0) {
+    alerta(`No tiene mas ${producto} en inventario`)
     return false
   }
   if (this.validInventario(id, cant.val()) ) {
@@ -462,12 +502,16 @@ OrdenesTrabajo.prototype.validInventario = function (id, cant) {
 }
 
 
-OrdenesTrabajo.prototype.addHerramientas = function (id, producto, price) {
+OrdenesTrabajo.prototype.addHerramientas = function (id, producto, price, cantProd) {
   var cant = $(`#cant${id}`)
 
   if(cant.val() === "" || cant.val() == 0){
     alerta("Porfavor ingrese la cantidad")
     cant.focus()
+    return false
+  }
+  if (cantProd <= 0) {
+    alerta(`No tiene mas ${producto} en inventario`)
     return false
   }
   if (this.validHerramientas(id, cant.val()) ) {

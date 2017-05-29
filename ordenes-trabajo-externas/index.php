@@ -2,6 +2,8 @@
   include "../conexion/conexion.php";
   date_default_timezone_set('America/Guayaquil');
   $hoy = date("Y/m/d");
+  $fecha = date("d/m/Y");
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -68,7 +70,7 @@
     </article>
   </section>
 
-  <div class="col-xs-10 col-xs-offset-1 col-md-5 col-md-offset-3" 
+  <div class="col-xs-10 col-xs-offset-1 col-md-5 col-md-offset-3"
         style="position: fixed;top: 19em;z-index: 111;display:none" id="observacion-aguaje">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -84,7 +86,7 @@
     </div>
   </div>
 
-  <div class="col-xs-10 col-xs-offset-1 col-md-5 col-md-offset-3" 
+  <div class="col-xs-10 col-xs-offset-1 col-md-5 col-md-offset-3"
         style="position: fixed;top: 19em;z-index: 111;display:none" id="mantenimiento-aguaje">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -110,6 +112,6 @@
   require "../scripts.php";
   ?>
   <script type="text/javascript" src="app/ordenesTrabajo.js"></script>
-  
+
 </body>
 </html>

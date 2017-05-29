@@ -20,8 +20,13 @@
         <div class="form-group">
           <label for="unidad" class="col-md-4 control-label">Unidad</label>
           <div class="col-md-8">
-            <input type="text" class="form-control" name="unidad"
-              id="unidad" placeholder="unidad" maxlength="80">
+            <select name="unidad" id="unidad" class="form-control desabilitar">
+              <option value="UN">UN</option>
+              <option value="JP">JP</option>
+              <option value="PI">PI</option>
+              <option value="LT">LT</option>
+              <option value="LB">LB</option>
+            </select>
           </div>
         </div>
       </div>

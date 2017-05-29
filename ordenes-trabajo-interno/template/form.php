@@ -1,3 +1,4 @@
+<input type="hidden" value="<?= $fecha ?>" id="DateMin">
 
 <div class="panel panel-info">
   <div class="panel-heading">
@@ -19,7 +20,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="col-xs-12">
         <div class="col-xs-6 middle">
           <label for="subarea" class="col-xs-3 control-label">Subarea</label>
@@ -76,7 +77,7 @@
         <div class="col-xs-3">
           <label for="mantenimiento" class="col-xs-3 control-label">Mantenimiento</label>
         </div>
-        
+
          <div class="col-xs-3">
           <div class="radio radio-primary">
             <label>
@@ -109,7 +110,7 @@
           <button class="btn btn-raised btn-warning" id="herramientas">Herramientas</button>
           <button class="btn btn-raised btn-success" id="materiales">Materiales</button>
           <!-- <a href="#" target="_blank" id="ver_diagnosticos">Ver diagnostico</a> -->
-          
+
         </div>
         <div class="col-xs-12" id="containerObse">
           <textarea id="observacion" rows="4" class="form-control"></textarea>
@@ -133,7 +134,7 @@
     <h3 class="panel-title text-center">Tiempo de trabajo realizado</h3>
   </div>
   <div class="panel-body">
-    
+
     <div class="col-xs-6 space-around middle">
       <h4 class="text-center">INICIO</h4>
       <table class="table table-bordered table-default table-striped nomargin">
@@ -189,7 +190,7 @@
         <input id="fechaDateTime" class="form-control datepicker" placeholder="Ingrese le fecha que termino" />
       </div>
     </div>
-    
+
     <div class="col-xs-6 middle">
       <label for="horaDateTime" class="col-xs-2 control-label">Hora</label>
       <div class="col-xs-7">
@@ -282,7 +283,7 @@
       placeholder="Escribe lo que andas buscando" aria-describedby="searchInventartio" />
   </div>
   <section class="panel-body" id="Tab_FilterInventario">
-    <article></article>  
+    <article></article>
     <?php
     $inventario = $pdo->query("SELECT * FROM sgmeinve
                     ORDER BY einven_cod_einven ASC");
@@ -303,6 +304,7 @@
           data-id="<?= $row["einven_cod_einven"]?>"
           data-producto="<?= $row["einven_pro_einven"]?>"
           data-price="<?= $row["einven_cos_einven"]?>"
+          data-cant="<?= $row["einven_cant_einven"]?>"
           >
           <i class="fa fa-cart-plus white-text" aria-hidden="true"></i>
         </button>
@@ -330,7 +332,7 @@
       placeholder="Escribe lo que andas buscando" aria-describedby="searchHerrList" />
   </div>
   <section class="panel-body" id="Tab_FilterHermienta">
-    <article></article>  
+    <article></article>
     <?php
     $herramientas = $pdo->query("SELECT * FROM sgmeherr ORDER BY eherr_cod_eherr ASC");
     while ($row = $herramientas->fetch()) {
@@ -350,6 +352,7 @@
           data-id="<?= $row["eherr_cod_eherr"]?>"
           data-producto="<?= $row["eherr_det_eherr"]?>"
           data-price="<?= $row["eherr_cos_eherr"]?>"
+          data-cant="<?= $row["eherr_cant_eherr"]?>"
           >
           <i class="fa fa-cart-plus white-text" aria-hidden="true"></i>
         </button>

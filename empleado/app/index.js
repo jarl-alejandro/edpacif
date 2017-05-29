@@ -34,6 +34,10 @@
           alertaInfo("Se ha guardado con exito el empleado")
           canelarForm()
         }
+        if (parseInt(response) === 3) {
+          alerta("El empleado ya existe")
+          $cedula.focus()
+        }
       })
     }
   })

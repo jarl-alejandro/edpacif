@@ -9,7 +9,7 @@ date_default_timezone_set('America/Guayaquil');
 class PDF extends FPDF {
 
   function Header() {
-    $this->Image('../../assets/img/logo.png', 0, 0, 210, 42);    
+    $this->Image('../../assets/img/logo.png', 0, 0, 210, 42);
 
     $this->SetFont('Arial', 'B', 15);
     $this->SetTextColor(0, 0, 0);
@@ -94,7 +94,7 @@ $pdf->Cell(50, 6.5, strtoupper(utf8_decode("ESTADO: " . $fetch['etare_est_etare'
 $pdf->Ln(4);
 
 
-//$pdf->Cell(200, 6.5, utf8_decode("EMITIDO POR : " . $fetch['etare_emi_etare']), 0, 'C');
+$pdf->Cell(200, 6.5, utf8_decode("EMITIDO POR : " . $fetch['etare_emit_etare']), 0, 'C');
 $pdf->Ln(4);
 $pdf->Cell(50, 6.5, "EQUIPO: " . $fetch["eequi_det_eequi"], 0, 'C');
 
@@ -105,7 +105,7 @@ $pdf->Cell(260, 6.5, utf8_decode("DETALLE: " . $fetch['ltare_det_ltare']), 0, 'C
 $pdf->Ln(4);
 
 if($fetch['etare_est_etare'] == "finalizado" || $fetch['etare_est_etare'] == "revisado"){
-  $pdf->Cell(260, 6.5, utf8_decode("OBSERVACION: " . $fetch['eorin_inf_eorin']), 0, 'C');
+  $pdf->Cell(260, 6.5, utf8_decode("INFORME: " . $fetch['etare_inf_etare']), 0, 'C');
 }
 
 $pdf->Ln(15);
@@ -149,7 +149,7 @@ $header1 = array('CODIGO', 'CANT', 'DETALLE', 'PRECIO', 'TOTAL');
 
 $pdf->TablaColores($header1);
 
-$herramientas = $pdo->query("SELECT * FROM vista_herramienta_tarea 
+$herramientas = $pdo->query("SELECT * FROM vista_herramienta_tarea
                               WHERE herta_cod_herta='$id'");
 $pdf->Ln();
 $total_herramientas = 0;
@@ -161,12 +161,12 @@ if($herramientas->rowCount() == 0) {
 while ($detail = $herramientas->fetch()) {
   $suma = $detail["herta_cant_herta"] * $detail["herta_pric_herta"];
   $total_herramientas = $total_herramientas + $suma;
-  
+
   $pdf->Cell(20, 6.5, $detail["eherr_cod_eherr"], 1, 'C');
   $pdf->Cell(20, 6.5, $detail["herta_cant_herta"], 1, 'C');
   $pdf->Cell(100, 6.5, utf8_decode($detail["eherr_det_eherr"]), 1, 'C');
   $pdf->Cell(30, 6.5, $detail["herta_pric_herta"], 1, 'C');
-  
+
   $pdf->Cell(20, 6.5, number_format($suma, 2), 1, 'C');
   $pdf->Ln();
 }
@@ -222,14 +222,14 @@ $valorHora = $sueldo/$diasMes;
 $subtotal = 0;
 
 
-  for ($i=0; $i < count($fechasInicio); $i++) { 
+  for ($i=0; $i < count($fechasInicio); $i++) {
     $dateStart = $fechasInicio[$i];
     $dateEnd = $fechasFinal[$i];
 
-    $dteDiff  = $dateStart->diff($dateEnd);   
+    $dteDiff  = $dateStart->diff($dateEnd);
     $format = $dteDiff->format("%I");
     $formatPresent = $dteDiff->format("%H:%I:%S");
-    
+
     $segundos = $dteDiff->format("%S");
     $minutos = $dteDiff->format("%I");
     $horas = $dteDiff->format("%H") * 60;
@@ -243,7 +243,7 @@ $subtotal = 0;
     $pdf->Cell(40, 6.5, $formatPresent, 1, 'C');
     $pdf->Cell(40, 6.5, $valorHoraWork, 1, 'C');
     $pdf->Ln();
-    
+
     $pdf->Cell(40, 6.5, 'REPUESTOS', 1, 'C');
     $pdf->Cell(40, 6.5, number_format($total_repuestos, 2), 1, 'C');
     $pdf->Cell(40, 6.5, number_format($total_repuestos, 2), 1, 'C');
@@ -276,13 +276,13 @@ $subtotal = 0;
   $pdf->Cell(40, 6.5, number_format($iva_pagar, 2), 1, 'C');
   $pdf->Ln();
 
-  $total = $iva + $subtotal;
+  $total = $iva_pagar + $subtotal;
   $pdf->setX(50);
   $pdf->Cell(40, 6.5, "TOTAL", 1, 'C');
   $pdf->Cell(40, 6.5, number_format($total, 2), 1, 'C');
   $pdf->Ln();
-  
-} 
+
+}
 
 
 

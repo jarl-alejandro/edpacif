@@ -4,9 +4,10 @@
   $(".task_visto").on("click", taskVisto)
   $(".reporte").on("click", handleReporte)
   $("#btn-tiempos").on('click', handleTiempo)
-  
+
   var tareasDb = {}
   tareasDb.fin = []
+  tareasDb.inicio = {}
   tareasDb.fin_count = 0
 
   $("#ordenFormTimeFin").on("click", function (e) {
@@ -45,6 +46,7 @@
       console.log(snap)
       $(".panel-tiempos").slideDown()
       var inicio = { fecha: snap.fein_fet_fein, hora: snap.fein_hor_fein }
+      tareasDb.inicio = inicio
       var template = `<tr>
         <td>${inicio.fecha}</td>
         <td>${inicio.hora}</td>`
@@ -72,6 +74,9 @@
   })
 
   function validDateTime (hora, fecha) {
+    var array = fecha.split("-")
+    fecha = array[2]+"-"+array[1]+"-"+array[0]
+
     if(fecha == ""){
       alerta("Porfavor ingrese la fecha")
       $("#fechaDateTime").focus()
@@ -81,6 +86,14 @@
       alerta("Porfavor ingrese la hora")
       $("#horaDateTime").focus()
       return false
+    }
+    if (tareasDb.inicio.fecha == fecha) {
+      if (tareasDb.inicio.hora >= hora) {
+        alerta("Porfavor ingrese la hora correcta")
+        $("#horaDateTime").focus()
+        return false
+      }
+      else return true
     }
     else return true
   }
@@ -113,7 +126,7 @@
   $("#cancelDateTime").on("click", function () {
     $("#horaDateTime").val("")
     $("#fechaDateTime").val("")
-    $(".form__date-time").slideUp()    
+    $(".form__date-time").slideUp()
   })
 
   function taskVisto (e) {
@@ -146,7 +159,7 @@
       $("#fecha").val(snap.etare_fet_etare)
       $("#detalle").val(snap.etare_det_etare)
 
-      $("#equipo").val(snap.eequi_cod_eequi)      
+      $("#equipo").val(snap.eequi_cod_eequi)
       $("#area").val(snap.subare_are_subare)
       $("#empleado").val(snap.eempl_ced_eempl)
       $("#fecha").val(snap.etare_fet_etare)
@@ -167,7 +180,12 @@
         $("#btn-tiempos").slideUp()
         $("#finish").slideDown()
       }
-      
+
+      if (snap.etare_est_etare === "revisar") {
+        $('#incompletoTask').slideDown()
+        document.getElementById('incompletoTask').dataset.id = id
+      }
+
       $("#save").slideUp()
       $(".informLayout").slideDown()
       $("#tableLayout").slideUp()
@@ -201,7 +219,7 @@
   function handleClickFechaReport () {
     var inicio = $("#inicio-table").val()
     var fin = $("#fin-table").val()
-    window.open (`reporte/lista.php?inicio=${inicio}&fin=${fin}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")    
+    window.open (`reporte/lista.php?inicio=${inicio}&fin=${fin}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
   }
 
   function handleAceptFecha (e) {
@@ -229,7 +247,7 @@
       return false
     }
     else return true
-    
+
   }
 
 

@@ -3,11 +3,10 @@
   'use strict'
 
   const ordenesTrabajo = new OrdenesTrabajo()
- 
+
   var $inicioFecha = $("#inicio-fecha")
   var $FinFecha = $("#fin-fecha")
 
-  $( '.datepicker' ).pickadate({})
 
   $("#acept-fecha").on("click", handleAceptFecha)
   $("#print").on("click", handleClickReport)
@@ -31,7 +30,7 @@
   function handleClickFechaReport () {
     var inicio = $("#inicio-table").val()
     var fin = $("#fin-table").val()
-    window.open (`reporte/lista.php?inicio=${inicio}&fin=${fin}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")    
+    window.open (`reporte/lista.php?inicio=${inicio}&fin=${fin}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
   }
 
   function handleAceptFecha (e) {
@@ -59,7 +58,7 @@
       return false
     }
     else return true
-    
+
   }
 
   $(".ordenTrabajoRevisado").on("click", function (e) {
@@ -95,7 +94,7 @@
   //       clearInterval(notify)
   //       $('.notifications').fadeOut()
   //     }
-      
+
 
   //     for (var i in snap) {
   //       var item = snap[i]
@@ -124,4 +123,3 @@
   // }, 3000)
 
 })()
-  

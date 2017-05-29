@@ -11,14 +11,14 @@
     $.ajax({
       type: "POST",
       url: "service/proceso.php",
-      data: { id } 
+      data: { id }
     })
     .done(function (snap) {
       console.log(snap)
       $(".tabla-contianer").load("template/table.php")
       showOrdenTrabajo(id)
     })
-    window.open(`reporte/materiales.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")    
+    window.open(`reporte/materiales.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
   })
 
   $(".ordenTrabajo").on("click", function (e) {
@@ -41,7 +41,7 @@
       })
       $("#subarea").val(snap.eorin_sub_eorin)
       $("#empleado").val(snap.eorin_emp_eorin)
-      
+
       $("#detalle").val(snap.eorin_det_eorin)
       $("#fechaEmision").val(snap.eorin_fet_eorin)
       $("#id_orden").val(snap.eorin_cod_eorin)
@@ -49,7 +49,7 @@
       document.querySelector(`input[value="${snap.eorin_man_eorin}"]`).checked = true
 
       if (snap.eorin_estfe_orin == 1) $('#tiempos').fadeOut()
-      
+
       if (snap.eorin_est_eorin == 'pedido' || snap.eorin_est_eorin == 'proceso') {
         $('#ordenFormAceptar').fadeOut()
         $('#herramientas').fadeOut()
@@ -59,12 +59,14 @@
       if (snap.eorin_est_eorin == 'proceso') {
         $('#ordenFormSave').slideDown()
         $('#meOlvideMat').slideDown()
+        if (snap.eorin_estfe_orin == '1') $('#ordenFormSave').fadeIn()
+        if (snap.eorin_estfe_orin != '1') $('#ordenFormSave').fadeOut()
       }
 
       if(snap.eorin_est_eorin == "asignado" || snap.eorin_est_eorin == "visto") {
         $('#tiempos').fadeOut()
         $('#observacion').fadeOut()
-      } 
+      }
 
       $(".form__layout").slideDown()
       $(".tabla-contianer").slideUp()
@@ -93,7 +95,7 @@
   function handleClickFechaReport () {
     var inicio = $("#inicio-table").val()
     var fin = $("#fin-table").val()
-    window.open (`reporte/lista.php?inicio=${inicio}&fin=${fin}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")    
+    window.open (`reporte/lista.php?inicio=${inicio}&fin=${fin}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
   }
 
   function handleAceptFecha (e) {
@@ -121,8 +123,7 @@
       return false
     }
     else return true
-    
+
   }
 
 })()
-  

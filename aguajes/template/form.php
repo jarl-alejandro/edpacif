@@ -17,7 +17,7 @@ $meses = array('Enero',  'Febrero',  'Marzo', 'Abril',  'Mayo',  'Junio', 'Julio
         <div class="form-group">
           <label for="inicio" class="col-md-4 control-label">Inicio</label>
           <div class="col-md-6">
-            <input type="text" class="form-control datepicker" id="inicio" value="<?= $fecha ?>">
+            <input type="text" class="form-control datepicker" id="inicio" placeholder="<?= $fecha ?>">
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@ $meses = array('Enero',  'Febrero',  'Marzo', 'Abril',  'Mayo',  'Junio', 'Julio
         <div class="form-group">
           <label for="fin" class="col-md-4 control-label">Fin del Aguaje</label>
           <div class="col-md-6">
-            <input type="text" class="form-control datepicker" id="fin" value="<?= $fecha ?>">
+            <input type="text" class="form-control datepicker" id="fin" placeholder="<?= $fecha ?>">
           </div>
         </div>
       </div>

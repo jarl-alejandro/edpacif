@@ -1,9 +1,10 @@
 ;(function () {
   'use strict'
 
-
   var $FinFecha = $("#fin-fecha")
+  var dateMin = $("#DateMin").val()
 
+  $( '.datepicker' ).pickadate({ min: dateMin })
   $(".tabla-contianer").load("template/table.php")
 
   const ordenesTrabajo = new OrdenesTrabajo()
@@ -11,7 +12,7 @@
   $("#form-btn").on("click", ordenesTrabajo.showForm)
 
   $("#ordenFormAceptar").on("click", function (e) {
-    e.preventDefault()    
+    e.preventDefault()
     ordenesTrabajo.aceptarForm()
   })
 
@@ -42,23 +43,25 @@
     var id = e.currentTarget.dataset.id
     var producto = e.currentTarget.dataset.producto
     var price = e.currentTarget.dataset.price
+    var cantProducto = e.currentTarget.dataset.cant
 
-    ordenesTrabajo.addInventario(id, producto, price)
+    ordenesTrabajo.addInventario(id, producto, price, cantProducto)
   })
 
   $(".add-herr").on("click", function (e) {
     var id = e.currentTarget.dataset.id
     var producto = e.currentTarget.dataset.producto
     var price = e.currentTarget.dataset.price
+    var cantProducto = e.currentTarget.dataset.cant
 
-    ordenesTrabajo.addHerramientas(id, producto, price)
+    ordenesTrabajo.addHerramientas(id, producto, price, cantProducto)
   })
 
   $("#cancelDateTime").on("click", function () {
     $("#horaDateTime").val("")
     $("#fechaDateTime").val("")
     orden.editar = false
-    $(".form__date-time").slideUp()    
+    $(".form__date-time").slideUp()
   })
 
   $("#saveDateTime").on("click", function (e) {
@@ -81,7 +84,7 @@
     $(".panel-tiempos").slideUp()
   })
 
-  
+
   $("#herramientas").on("click", function (e) {
     e.preventDefault()
     $(".panel-herramienta").slideDown()
@@ -125,26 +128,31 @@
   })
 
   $("#updateDateTime").on('click', function () {
-    if (orden.fin[0] != undefined) {
-      orden.fin[0].hora = $("#horaDateTime").val()
-      orden.fin[0].fecha = $("#fechaDateTime").val()
-      ordenesTrabajo.buildingDateTime("fin")
-      orden.editar = true
-    }
+     var hora = $("#horaDateTime").val()
+     var fecha = $("#fechaDateTime").val()
 
-    $("#horaDateTime").val("")
-    $("#fechaDateTime").val("")
-    $(".form__date-time").slideUp()    
-    $("#saveDateTime").fadeIn()
-    $("#updateDateTime").fadeOut()
+    if (ordenesTrabajo.validDateTime(hora+":00", fecha)) {
+      if (orden.fin[0] != undefined) {
+        orden.fin[0].hora = $("#horaDateTime").val()
+        orden.fin[0].fecha = $("#fechaDateTime").val()
+        ordenesTrabajo.buildingDateTime("fin")
+        orden.editar = true
+      }
+
+      $("#horaDateTime").val("")
+      $("#fechaDateTime").val("")
+      $(".form__date-time").slideUp()
+      $("#saveDateTime").fadeIn()
+      $("#updateDateTime").fadeOut()
+    }
   })
 
   $("#materialesAdd").on("click", function (e) {
-    $(".panel-inventario").slideDown()    
+    $(".panel-inventario").slideDown()
   })
 
    $(".close--inven").on("click", function () {
-    $(".panel-inventario").slideUp()    
+    $(".panel-inventario").slideUp()
   })
 
   $("#Herramientasadd").on("click", function () {
@@ -152,7 +160,7 @@
   })
 
   $("#panelHerramAceptar").on("click", function () {
-    $(".panel-listadoHerramientas").slideUp()    
+    $(".panel-listadoHerramientas").slideUp()
   })
 
   $(".close--her").on("click", function (e) {
@@ -174,7 +182,7 @@
     if(config.type === "materiales") {
       invent = orden.repuestos
       orden.type_repuestos = true
-    } 
+    }
     if(config.type === "Herramientas") {
       invent = orden.herramientas
       orden.type_herramienta = true
@@ -184,7 +192,7 @@
     ordenesTrabajo.buildingInventario(config.type)
     $('.panel-editar').slideUp()
   })
-  
+
   $("#cancelarEditMET").on('click', function (e) {
     $('.panel-editar').slideUp()
   })
@@ -218,4 +226,3 @@
   })
 
 })()
-  
