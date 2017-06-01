@@ -30,8 +30,7 @@ if (isset($_POST["herramientas"])) {
 }
 if (isset($_POST["repuestos"])) {
   $repuestos = $_POST["repuestos"];
-  $respQuery = $pdo->prepare("INSERT INTO sgmedoir (doir_herr_doir, doir_cant_doir, doir_pric_doir, doir_cod_doir)
-                            VALUES (?, ?, ?, ?)");
+  $respQuery = $pdo->prepare("INSERT INTO sgmedoir (doir_herr_doir, doir_cant_doir, doir_pric_doir, doir_cod_doir) VALUES (?, ?, ?, ?)");
 
   foreach($repuestos as $resp) {
     $idResp = $resp["id"];
