@@ -15,6 +15,18 @@ class PDF extends FPDF {
     $this->SetTextColor(0, 0, 0);
     $this->Ln(1);
     $this->Line(2, 42, 295, 42);
+    $this->SetFont('Arial', '', 10);
+    $fecha = date("Y/m/d");
+    $hora = date("H:i");
+    $empleado = $_SESSION["f9f011a553550aef31a8ee2690e1d1b5f261c9ff"];
+
+    $this->Text(20, 48, "FECHA DE IMPRESION: $fecha");
+
+    $this->Text(80, 48, "HORA: $hora");
+    $this->Text(110, 48, "EMPLEADO: $empleado");
+    $this->Ln(10);
+
+    $this->SetFont('Arial', 'B', 15);
     $this->Text(110, 54, 'LISTADO DE AREA GENERAL');
     $this->Ln(25);
   }
@@ -72,7 +84,7 @@ $pdf->Cell(150, 6.5, utf8_decode($row['earege_det_earege']), 1, 'C');
 
 if($row["earege_agu_earege"] == true)
   $pdf->Cell(60, 6.5, 'SI', 1, 0, 'C');
-else 
+else
   $pdf->Cell(60, 6.5, 'NO', 1, 0, 'C');
 
 $pdf->Output();

@@ -15,6 +15,18 @@ class PDF extends FPDF {
     $this->SetTextColor(0, 0, 0);
     $this->Ln(1);
     $this->Line(2, 42, 295, 42);
+    $this->SetFont('Arial', '', 10);
+    $fecha = date("Y/m/d");
+    $hora = date("H:i");
+    $empleado = $_SESSION["f9f011a553550aef31a8ee2690e1d1b5f261c9ff"];
+
+    $this->Text(20, 48, "FECHA DE IMPRESION: $fecha");
+
+    $this->Text(80, 48, "HORA: $hora");
+    $this->Text(110, 48, "EMPLEADO: $empleado");
+    $this->Ln(10);
+
+    $this->SetFont('Arial', 'B', 15);
     $this->Text(110, 54, 'LISTADO DE BODEGA');
     $this->Ln(25);
 

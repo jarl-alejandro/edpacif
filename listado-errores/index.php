@@ -36,5 +36,6 @@
     require "../templates/info.php";
     require "../scripts.php";
   ?>
+
 </body>
 </html>

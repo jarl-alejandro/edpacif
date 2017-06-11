@@ -1,3 +1,4 @@
+<?php include "../../conexion/conexion.php";?>
 <div class="input-group space-padding">
   <span class="input-group-addon" id="buscadorInput">
     <i class="fa fa-search black-text" aria-hidden="true"></i>
@@ -9,24 +10,24 @@
   id="Tab_Filter">
   <thead class="success">
     <tr>
+      <th>#</th>
       <th>Codigo</th>
       <th class="text-center">Inventario</th>
     </tr>
   </thead>
   <tbody>
     <?php
-    $doir_query = $pdo->query('SELECT doir_herr_doir, SUM(doir_cant_doir) FROM sgmedoir');
-    while ($row = $doir_query->fetch()) {
-      print_r($row);
-    }
-    $invent = $pdo->query("SELECT * FROM sgmeinve ORDER BY einven_cod_einven ASC");
-    if($invent->rowCount() == 0){
-      echo "<tr><td colspan='3' class='text-center'>No hay inventario</td></tr>";
+    $index = 0;
+    $doir_query = $pdo->query("SELECT * FROM v_ba_stock_inventario");
+    if($doir_query->rowCount() == 0){
+      echo "<tr><td colspan='3' class='text-center'>No hay productos con bajo stock</td></tr>";
     }
     else{
-    while ($rows = $invent->fetch()) {
+    while ($rows = $doir_query->fetch()) {
+      $index++;
     ?>
       <tr>
+        <td class="principal-cuenta"><?= $index ?></td>
         <td class="principal-cuenta"><?= $rows["einven_cod_einven"]; ?></td>
         <td class="principal-cuenta"><?= $rows["einven_pro_einven"]; ?></td>
       </tr>

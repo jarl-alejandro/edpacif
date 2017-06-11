@@ -1,4 +1,3 @@
-<?php include "../conexion/conexion.php";?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,9 +19,7 @@
             </a>
             <div class="panel panel-site-traffic">
               <div class="table-responsive">
-                <section class="tabla-contianer">
-                  <?php require './template/table.php' ?>
-                </section>
+                <section class="tabla-contianer"></section>
               </div>
             </div>
 
@@ -36,10 +33,26 @@
   <section id="form-conatiner" class="none">
     <?php require "template/form.php" ?>
   </section>
+  <script type="text/javascript" src='app/detail.js'></script>
   <?php
     require "../templates/alert.php";
     require "../templates/info.php";
     require "../scripts.php";
   ?>
+  <script type="text/javascript" src="../mis-ordenes-trabajo-interno/app/buscador.js"></script>
+  <script type="text/javascript" src="../assets/js/pagingArticle.js"></script>
+  <script type="text/javascript">
+    var pagerInve = new Pager('Tab_FilterInventario', 3, 'inventario', 4);
+    pagerInve.init();
+    pagerInve.showPageNav('pagerInve', 'NavPosicionInventario');
+    pagerInve.showPage(1);
+
+    (function() {
+      theTableInve = $("#Tab_FilterInventario");
+      $("#searchInven").keyup(function() {
+        $.articleBuscador(theTableInve, this.value, 4)
+      })
+    })()
+  </script>
 </body>
 </html>

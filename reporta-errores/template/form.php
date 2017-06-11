@@ -13,7 +13,7 @@
             <select id="equipo" class="form-control">
               <option value="">Ingrese el equipo</option>
               <?php
-                $equipos = $pdo->query("SELECT * FROM smgeequi WHERE eequi_baja_eequi='0'"); 
+                $equipos = $pdo->query("SELECT * FROM smgeequi WHERE eequi_baja_eequi='0'");
                 while ($row = $equipos->fetch()) { ?>
                 <option value="<?= $row['eequi_cod_eequi'] ?>"><?= $row['eequi_det_eequi'] ?></option>
               <?php } ?>
@@ -24,14 +24,14 @@
         <div class="form-group">
           <label for="detalle" class="col-md-4 control-label">Detalle</label>
           <div class="col-xs-12 col-md-8">
-            <textarea class="form-control" id="detalle_name" 
+            <textarea class="form-control" id="detalle_name"
               placeholder="Ingrese errores del equipo" ></textarea>
           </div>
         </div>
 
       </div>
       <div class="col-xs-12 footer-pane top-space center">
-        <button class="btn btn-raised btn-info" id="">Guardar</button>
+        <button class="btn btn-raised btn-info" id="saved-btn">Guardar</button>
       </div>
     </form>
     <!-- /Form -->

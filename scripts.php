@@ -64,7 +64,7 @@
     </div>
 
     <div class="col-xs-6 middle">
-      <label for="horaDateTime-task"" class="col-xs-2 control-label">Hora</label>
+      <label for="horaDateTime-task" class="col-xs-2 control-label">Hora</label>
       <div class="col-xs-7">
         <input id="horaDateTime-task" type="time" class="form-control"  />
       </div>

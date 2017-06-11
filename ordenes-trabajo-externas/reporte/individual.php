@@ -5,8 +5,6 @@ date_default_timezone_set('America/Guayaquil');
 require('fpdf.php');
 include "../../conexion/conexion.php";
 
-
-
 class PDF extends FPDF {
 
   function Header() {

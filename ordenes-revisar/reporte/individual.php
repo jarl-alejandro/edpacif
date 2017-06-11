@@ -15,6 +15,18 @@ class PDF extends FPDF {
     $this->SetTextColor(0, 0, 0);
     $this->Ln(1);
     $this->Line(2, 42, 295, 42);
+    $this->SetFont('Arial', '', 10);
+    $fecha = date("Y/m/d");
+    $hora = date("H:i");
+    $empleado = $_SESSION["f9f011a553550aef31a8ee2690e1d1b5f261c9ff"];
+
+    $this->Text(20, 48, "FECHA DE IMPRESION: $fecha");
+
+    $this->Text(80, 48, "HORA: $hora");
+    $this->Text(110, 48, "EMPLEADO: $empleado");
+    $this->Ln(10);
+
+    $this->SetFont('Arial', 'B', 15);
     $this->Text(110, 54, 'ORDEN DE TRABAJO INTERNA');
     $this->Ln(25);
   }
@@ -116,7 +128,7 @@ $herramientas = $pdo->query("SELECT * FROM v_herramientas_orden WHERE doih_cod_d
 $pdf->Ln();
 
 while ($detail = $herramientas->fetch()) {
-  $pdf -> SetX(160);  
+  $pdf -> SetX(160);
   $setY = $setY + 20;
   $pdf->Cell(20, 6.5, $detail["doih_cant_doih"], 1, 'C');
   $pdf->Cell(100, 6.5, utf8_decode($detail["eherr_det_eherr"]), 1, 'C');
@@ -155,7 +167,7 @@ while ($detail = $herramientas->fetch()) {
 // $pdf->Ln();
 
 // while ($detail = $fechaFinal->fetch()) {
-//   $pdf -> SetX(90);  
+//   $pdf -> SetX(90);
 //   $fechaend = $detail["doff_fet_doff"] . " " . $detail["doff_hor_doff"];
 //   $datetimeEnd = new DateTime($fechaend);
 //   $fechasFinal[] = $datetimeEnd;
@@ -184,13 +196,13 @@ while ($detail = $herramientas->fetch()) {
 // $valorHora = $sueldo/$diasMes;
 // $subtotal = 0;
 
-// for ($i=0; $i < count($fechasInicio); $i++) { 
+// for ($i=0; $i < count($fechasInicio); $i++) {
 //   $dateStart = $fechasInicio[$i];
 //   $dateEnd = $fechasFinal[$i];
 
-//   $dteDiff  = $dateStart->diff($dateEnd);   
-//   $format = $dteDiff->format("%I"); 
-//   $formatPresent = $dteDiff->format("%H:%I:%S"); 
+//   $dteDiff  = $dateStart->diff($dateEnd);
+//   $format = $dteDiff->format("%I");
+//   $formatPresent = $dteDiff->format("%H:%I:%S");
 
 //   $priceHoras = number_format(($format * $valorHora) / 24, 2);
 

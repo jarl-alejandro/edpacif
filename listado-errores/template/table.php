@@ -10,23 +10,39 @@
   id="Tab_Filter">
   <thead class="success">
     <tr>
-      <th>Codigo</th>
-      <th class="text-center">Inventario</th>
-      <th>Acciones</th>
+      <th>#</th>
+      <th class="text-center">INFORME</th>
+      <th class="text-center">CODIGO</th>
+      <th class="text-center">EQUIPO</th>
+      <th class="text-center">EMPLEADO</th>
+      <th>
+        <button class="btn btn-raised center derecha" id="print-all">
+          <i class="fa fa-print" aria-hidden="true"></i>
+        </button>
+      </th>
     </tr>
   </thead>
   <tbody>
     <?php
-    $invent = $pdo->query("SELECT * FROM sgmeinve ORDER BY einven_cod_einven ASC");
-    if($invent->rowCount() == 0){
-      echo "<tr><td colspan='3' class='text-center'>No hay inventario</td></tr>";
+    $reportes = $pdo->query("SELECT * FROM view_report_faild");
+    $index = 0;
+    if($reportes->rowCount() == 0){
+      echo "<tr><td colspan='3' class='text-center'>No hay reporte de daños</td></tr>";
     }
     else{
-    while ($rows = $invent->fetch()) {
+    while ($rows = $reportes->fetch()) {
+      $index++;
     ?>
       <tr>
-        <td class="principal-cuenta"><?= $rows["einven_cod_einven"]; ?></td>
-        <td class="principal-cuenta"><?= $rows["einven_pro_einven"]; ?></td>
+        <td class="principal-cuenta"><?= $index ?></td>
+        <td class="principal-cuenta"><?= $rows["erepo_det_erepo"]; ?></td>
+        <td class="principal-cuenta"><?= $rows["erepo_equi_erepo"]; ?></td>
+        <td class="principal-cuenta"><?= $rows["eequi_det_eequi"]; ?></td>
+        <td class="principal-cuenta"><?= $rows["empleado"]; ?></td>
+        <td class="principal-cuenta"><button class='btn btn-raised btn-info print--faild'
+          data-id="<?= $rows["erepo_codi_erepo"]; ?>"><i class="fa fa-print"></i>
+        </button>
+        </td>
       </tr>
     <?php }
     } ?>
@@ -38,7 +54,6 @@
 <script type="text/javascript" src="app/app.js"></script>
 <script type="text/javascript" src="../assets/js/search.js"></script>
 <script type="text/javascript" src="../assets/js/paging.js"></script>
-
 <script type="text/javascript">
   var pager = new Pager('Tab_Filter', 4);
   pager.init();

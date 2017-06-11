@@ -15,10 +15,10 @@ $max = $_POST["max"];
 $min = $_POST["min"];
 $cant = $_POST["cant"];
 
-$nameRepeat = $pdo->query("SELECT einven_pro_einven FROM sgmeinve 
+$nameRepeat = $pdo->query("SELECT einven_pro_einven FROM sgmeinve
     WHERE einven_pro_einven='$producto'");
 
-$codRepeat = $pdo->query("SELECT einven_inici_einven FROM sgmeinve 
+$codRepeat = $pdo->query("SELECT einven_inici_einven FROM sgmeinve
     WHERE einven_inici_einven='$codeNew'");
 
 if($id == ""){
@@ -31,7 +31,7 @@ if($id == ""){
   }
 
   $inve = $pdo->prepare("INSERT INTO sgmeinve (einven_cod_einven,
-    einven_pro_einven, einven_uni_einven, einven_dis_einven, einven_cos_einven, 
+    einven_pro_einven, einven_uni_einven, einven_dis_einven, einven_cos_einven,
     einven_bod_einven, einven_max_einven, einven_min_einven, einven_cant_einven,
     einven_iin_einven, einven_inici_einven) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -54,7 +54,7 @@ else{
   $inve = $pdo->query("UPDATE sgmeinve SET einven_pro_einven='$producto',
     einven_uni_einven='$unidad', einven_dis_einven='$disponibilidad',
     einven_cos_einven='$costo', einven_bod_einven='$bodega',
-    einven_max_einven='$max', einven_min_einven='$min', 
+    einven_max_einven='$max', einven_min_einven='$min',
     einven_cant_einven='$cant'
     WHERE einven_cod_einven='$id'");
 }

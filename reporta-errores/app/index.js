@@ -2,11 +2,12 @@
   'use strict'
 
   var $equipo = $('#equipo')
-  var $detalle = $('#detalle')
+  var $detalle = $('#detalle_name')
 
-  $('#save').on('click', handleSaved)
+  $('#saved-btn').on('click', handleSaved)
 
-  function handleSaved () {
+  function handleSaved (e) {
+    e.preventDefault()
     if (validar()) {
       $.ajax({
         type: 'POST',
@@ -33,7 +34,7 @@
     if ($detalle.val() === '') {
       alerta('Ingresa el detalle')
       $detalle.focus()
-      reutrn false
+      return false
     }
     if ($detalle.val().length < 19) {
       alerta('El informe del daño debe ser mas de 20 caracteres')

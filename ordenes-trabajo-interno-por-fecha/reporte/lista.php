@@ -15,6 +15,18 @@ class PDF extends FPDF {
     $this->SetTextColor(0, 0, 0);
     $this->Ln(1);
     $this->Line(2, 42, 295, 42);
+    $this->SetFont('Arial', '', 10);
+    $fecha = date("Y/m/d");
+    $hora = date("H:i");
+    $empleado = $_SESSION["f9f011a553550aef31a8ee2690e1d1b5f261c9ff"];
+
+    $this->Text(20, 48, "FECHA DE IMPRESION: $fecha");
+
+    $this->Text(80, 48, "HORA: $hora");
+    $this->Text(110, 48, "EMPLEADO: $empleado");
+    $this->Ln(10);
+
+    $this->SetFont('Arial', 'B', 15);
     $this->Text(110, 54, 'LISTADO DE ORDENES DE TRABAJO INTERNA POR FECHA');
     $this->Ln(25);
 
@@ -26,7 +38,7 @@ class PDF extends FPDF {
     $this->SetLineWidth(.3);
     $this->SetFont('Arial', 'B');
 
-    $w = array(30, 30, 100, 50, 70); 
+    $w = array(30, 30, 100, 50, 70);
 
     for ($i = 0; $i < count($header); $i++)
       $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
@@ -66,12 +78,12 @@ else{
   $empleado = $_GET["empleado"];
 
   if($empleado == ""){
-    $query = $pdo->query("SELECT * FROM v_orden_interna WHERE eorin_fet_eorin 
-                            BETWEEN '$inicio' AND '$fin'");  
+    $query = $pdo->query("SELECT * FROM v_orden_interna WHERE eorin_fet_eorin
+                            BETWEEN '$inicio' AND '$fin'");
   }
   else {
-    $query = $pdo->query("SELECT * FROM v_orden_interna WHERE eorin_fet_eorin 
-          BETWEEN '$inicio' AND '$fin' AND eempl_ced_eempl='$empleado'");      
+    $query = $pdo->query("SELECT * FROM v_orden_interna WHERE eorin_fet_eorin
+          BETWEEN '$inicio' AND '$fin' AND eempl_ced_eempl='$empleado'");
   }
 }
 
