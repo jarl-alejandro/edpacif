@@ -2,12 +2,6 @@
   include "../conexion/conexion.php";
   $meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
   $dias = array('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo');
-
-  $qs = $pdo->query("SELECT * FROM sgmeagua");
-  while($aguaje = $qs->fetch()) {
-
-    echo "\n\n\n\n";
-  }
 ?>
 <!DOCTYPE html>
 <html lang="es">
