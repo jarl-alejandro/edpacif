@@ -302,7 +302,7 @@ OrdenesTrabajo.prototype.addHerramientas = function (id, producto, price, cantPr
     cant.focus()
     return false
   }
-  if (cantProd <= 0) {
+  if (cantProducto <= 0) {
     alerta(`No tiene mas ${producto} en inventario`)
     return false
   }
@@ -379,4 +379,3 @@ OrdenesTrabajo.prototype.buildingHerramientas = function () {
 //   localStorage.setItem('inventarios', JSON.stringify(inventarios))
 //   this.buildingInventario()
 // }
-

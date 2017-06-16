@@ -17,7 +17,7 @@
   })
 
   $("#ordenFormAceptar").on("click", function (e) {
-    e.preventDefault()    
+    e.preventDefault()
     ordenesTrabajo.aceptarForm()
   })
 
@@ -59,22 +59,31 @@
 
   $("#meOlvideMat").on('click', function (e) {
     e.preventDefault()
-    var id = $("#id_orden").val()
-    $.ajax({
-      type: "POST",
-      url: 'service/olvide_materiales.php',
-      data: { id }
-    })
-    .done(function (snap) {
-      console.log(snap)
-      if (snap == 2) {
-        $(".tabla-contianer").load("template/table.php")
-        ordenesTrabajo.closeForm()
-        alertaInfo("Se ha pedido mas materiales y herramientas")
-      }
-
-    })
+    if (validarOlvidarMateriales()) {
+      var id = $("#id_orden").val()
+      $.ajax({
+        type: "POST",
+        url: 'service/olvide_materiales.php',
+        data: { id }
+      })
+      .done(function (snap) {
+        console.log(snap)
+        if (snap == 2) {
+          $(".tabla-contianer").load("template/table.php")
+          ordenesTrabajo.closeForm()
+          alertaInfo("Se ha pedido mas materiales y herramientas")
+        }
+      })
+    }
   })
+
+  function validarOlvidarMateriales () {
+    if (orden.inventarios.length === 0 || orden.herramientas.length === 0) {
+      alerta('Debe ingresar los materiales que se olvido')
+      return false
+    }
+    else return true
+  }
 
   $(".showFormTime").on("click", function (e) {
     var type = e.currentTarget.dataset.type
@@ -85,7 +94,7 @@
   $("#cancelDateTime").on("click", function () {
     $("#horaDateTime").val("")
     $("#fechaDateTime").val("")
-    $(".form__date-time").slideUp()    
+    $(".form__date-time").slideUp()
   })
 
   $("#herramientas").on("click", function (e) {
@@ -121,11 +130,11 @@
   })
 
   $("#materialesAdd").on("click", function (e) {
-    $(".panel-inventario").slideDown()    
+    $(".panel-inventario").slideDown()
   })
 
   $(".close--inven").on("click", function () {
-    $(".panel-inventario").slideUp()    
+    $(".panel-inventario").slideUp()
   })
 
   $("#Herramientasadd").on("click", function () {
@@ -133,8 +142,7 @@
   })
 
   $("#panelHerramAceptar").on("click", function () {
-    $(".panel-listadoHerramientas").slideUp()    
+    $(".panel-listadoHerramientas").slideUp()
   })
 
 })()
-  

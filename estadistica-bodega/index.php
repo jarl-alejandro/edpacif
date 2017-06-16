@@ -20,7 +20,7 @@
             <h2 class="text-center no-margin title">Estadistica de Inventario</h2>
             <!-- panel-->
             <div class="panel panel-site-traffic">
-              <div id="container" 
+              <div id="container"
                 style="min-width: 310px; height: 400px; margin: 0 auto">
               </div>
             </div>
@@ -32,7 +32,7 @@
       </div><!-- col-md-12 -->
     </div><!-- row -->
   </section>
-  
+
   <?php
   require "../templates/alert.php";
   require "../templates/info.php";
@@ -40,52 +40,60 @@
   ?>
 
   <script>
-  $(document).ready(function() {
-		 Highcharts.chart('container', {
-			chart: {
-					type: 'pie',
-					options3d: {
-							enabled: true,
-							alpha: 45,
-							beta: 0
-					}
-			},
-			title: {
-					text: 'Estadistica stock de inventario'
-			},
-			tooltip: {
-					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			},
-			plotOptions: {
-					pie: {
-							allowPointSelect: true,
-							cursor: 'pointer',
-							depth: 35,
-							dataLabels: {
-									enabled: true,
-									format: '{point.name}'
-							}
-					}
-			},
-			series: [{
-					type: 'pie',
-					name: 'Equipo',
-					data: [
-							<?php 
-								$aguajes = $pdo->query("SELECT * FROM sgmeinve");
-								foreach ($aguajes as $row) { ?>
-									{
-										name: '<?=$row["einven_pro_einven"]?>',
-										y: <?=$row["einven_cant_einven"]?>,
-										sliced: true,
-										selected: true
-									},
-								<?php  } ?>
-						]
+  // Create the chart
+  Highcharts.chart('container', {
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Inventario'
+      },
+      subtitle: {
+          text: ''
+      },
+      xAxis: {
+          type: 'category'
+      },
+      yAxis: {
+          title: {
+              text: ''
+          }
 
-			}]
-		});
-	});
-  
+      },
+      legend: {
+          enabled: false
+      },
+      plotOptions: {
+          series: {
+              borderWidth: 0,
+              dataLabels: {
+                  enabled: true,
+                  format: 'Cantidad {point.y}'
+              }
+          }
+      },
+
+      tooltip: {
+          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+          pointFormat: '<span style="color:{point.color}">{point.name}</span>: cantidad <b>{point.y}</b><br/>'
+      },
+
+      series: [{
+          name: 'Inventario',
+          colorByPoint: true,
+          data: [
+          <?php
+          $qs = $pdo->query("SELECT * FROM v_ba_stock_inventario");
+          while($inventario = $qs->fetch()) {
+          ?>
+            {
+              name: '<?= $inventario["einven_pro_einven"] ?>',
+              y: <?= $inventario["cant"] ?>,
+              drilldown: 'Inventario'
+            },
+          <?php } ?>
+          ]
+      }]
+  });
   </script>
 </body>

@@ -261,8 +261,8 @@
 <script src="../assets/js/bootstrap.js"></script>
 <script src="../lib/jquery-toggles/toggles.js"></script>
 <script src="../assets/js/highcharts.js"></script>
-<script src="../assets/js/highcharts-3d.js"></script>
-<script src="../assets/js/theme.js"></script>
+<!-- <script src="../assets/js/highcharts-3d.js"></script> -->
+<!-- <script src="../assets/js/theme.js"></script> -->
 <script src="../assets/js/exporting.js"></script>
 
 <script src="../assets/js/quirk.js"></script>
@@ -303,7 +303,6 @@
     $("#searchHerrTask").keyup(function() {
       $.articleBuscador(theTableHerrTask, this.value, 4)
     })
-
   })()
 </script>
 
