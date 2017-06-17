@@ -214,6 +214,8 @@ $employee = $employeQuery->fetch();
               <li><a href="../estadistica-aguaje">Estadistica de Aguaje</a></li>
               <li><a href="../estadistica-bodega">Estadistica de bodega</a></li>
               <li><a href="../estadistica-mantenimeinto-equipos">Estadistica mantenimeinto equipos</a></li>
+              <li><a href="../estadistica-ote-equipos">Estadistica mantenimeinto O.T.E</a></li>
+              <li><a href="../estadistica-tareas-equipos">Estadistica mantenimeinto tareas</a></li>
             </ul>
           </li>
         </ul>

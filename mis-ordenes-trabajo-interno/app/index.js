@@ -34,16 +34,16 @@ OrdenesTrabajo.prototype.teminarOrdenTrabajo = function () {
   var file_image = document.getElementById("diagnostico")
 
   // formData.append("diagnostico", file_image.files[0])
-	formData.append("obsevacion", orden.$obsevacion.val())
-	formData.append("id", id)
+  formData.append("obsevacion", orden.$obsevacion.val())
+  formData.append("id", id)
 
   $.ajax({
     type: "POST",
     url: "service/terminar.php",
     data: formData,
     cache: false,
-		contentType: false,
-		processData: false
+  contentType: false,
+  processData: false
   })
   .done(function (snap) {
     console.log(snap)
@@ -237,13 +237,13 @@ OrdenesTrabajo.prototype.addInventario = function (id, producto, price, cantProd
       price: price,
       total: total,
       cant: cant.val(),
-		}
-		orden.inventarios.push(contex)
-		localStorage.setItem('inventarios', JSON.stringify(orden.inventarios))
-		this.buildingInventario()
-		$(".panel-inventario").slideUp()
-		$(".cant-input").val("")
-	}
+    }
+    orden.inventarios.push(contex)
+    localStorage.setItem('inventarios', JSON.stringify(orden.inventarios))
+    this.buildingInventario()
+    $(".panel-inventario").slideUp()
+    $(".cant-input").val("")
+  }
 
 }
 
@@ -255,22 +255,22 @@ OrdenesTrabajo.prototype.validInventario = function (id, cant) {
     return true
   }
   for (var i in invent) {
-		var item = invent[i]
+  var item = invent[i]
 
-		if(item.id === id) {
-			item.cant = parseInt(item.cant) + parseInt(cant)
-			item.total = parseInt(item.cant) * parseFloat(item.price)
-			localStorage.setItem('inventarios', JSON.stringify(invent))
-			this.buildingInventario()
-			alertaInfo("Se ha actualizado con exito")
-			$(".panel-inventario").slideUp()
-			$(".cant-input").val("")
-			return false
-		}
-		else flag = true
-	}
+  if(item.id === id) {
+  item.cant = parseInt(item.cant) + parseInt(cant)
+  item.total = parseInt(item.cant) * parseFloat(item.price)
+  localStorage.setItem('inventarios', JSON.stringify(invent))
+  this.buildingInventario()
+  alertaInfo("Se ha actualizado con exito")
+  $(".panel-inventario").slideUp()
+  $(".cant-input").val("")
+  return false
+  }
+  else flag = true
+  }
 
-	return flag
+  return flag
 }
 
 OrdenesTrabajo.prototype.buildingInventario = function () {
@@ -314,13 +314,13 @@ OrdenesTrabajo.prototype.addHerramientas = function (id, producto, price, cantPr
       price: price,
       total: total,
       cant: cant.val(),
-		}
-		orden.herramientas.push(contex)
-		localStorage.setItem('herramientas', JSON.stringify(orden.herramientas))
-		this.buildingHerramientas()
-		$(".panel-listadoHerramientas").slideUp()
-		$(".cant-input").val("")
-	}
+  }
+  orden.herramientas.push(contex)
+  localStorage.setItem('herramientas', JSON.stringify(orden.herramientas))
+  this.buildingHerramientas()
+  $(".panel-listadoHerramientas").slideUp()
+  $(".cant-input").val("")
+  }
 }
 
 
@@ -332,22 +332,22 @@ OrdenesTrabajo.prototype.validHerramientas = function (id, cant) {
     return true
   }
   for (var i in herra) {
-		var item = herra[i]
+  var item = herra[i]
 
-		if(item.id === id) {
-			item.cant = parseInt(item.cant) + parseInt(cant)
-			item.total = parseInt(item.cant) * parseFloat(item.price)
-			localStorage.setItem('herramientas', JSON.stringify(herra))
-			this.buildingHerramientas()
-			alertaInfo("Se ha actualizado con exito")
-			$(".panel-listadoHerramientas").slideUp()
-			$(".cant-input").val("")
-			return false
-		}
-		else flag = true
-	}
+  if(item.id === id) {
+  item.cant = parseInt(item.cant) + parseInt(cant)
+  item.total = parseInt(item.cant) * parseFloat(item.price)
+  localStorage.setItem('herramientas', JSON.stringify(herra))
+  this.buildingHerramientas()
+  alertaInfo("Se ha actualizado con exito")
+  $(".panel-listadoHerramientas").slideUp()
+  $(".cant-input").val("")
+  return false
+  }
+  else flag = true
+  }
 
-	return flag
+  return flag
 }
 
 OrdenesTrabajo.prototype.buildingHerramientas = function () {
