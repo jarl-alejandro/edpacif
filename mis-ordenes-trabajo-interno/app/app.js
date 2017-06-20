@@ -1,6 +1,8 @@
 ;(function () {
   'use strict'
 
+  loadHomeOrden()
+
   $(".reporte").on("click", function (e){
     var id = e.currentTarget.dataset.id
     window.open(`reporte/individual.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
@@ -25,6 +27,15 @@
     var id = e.currentTarget.dataset.id
     showOrdenTrabajo(id)
   })
+
+  function loadHomeOrden (){
+    var open = $("#openedOrdenHome").val()
+    var code = $("#codeOrdenHome").val()
+
+    if (parseInt(open) === 1) {
+      showOrdenTrabajo(code)
+    }
+  }
 
   function showOrdenTrabajo (id) {
     $.ajax({

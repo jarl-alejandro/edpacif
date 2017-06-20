@@ -2,11 +2,12 @@
   'use strict'
 
   const ordenesTrabajo = new OrdenesTrabajo()
+  loadHomeOrden()
 
   var $inicioFecha = $("#inicio-fecha")
   var $FinFecha = $("#fin-fecha")
   var dateMin = $("#DateMin").val()
-  
+
   $( '.datepicker' ).pickadate({ min: dateMin })
 
   $("#acept-fecha").on("click", handleAceptFecha)
@@ -63,6 +64,15 @@
     $("#ordenFormIncompleto").fadeIn()
     ordenesTrabajo.ShowOrden(id)
   })
+
+  function loadHomeOrden (){
+    var open = $("#openedOrdenHome").val()
+    var code = $("#codeOrdenHome").val()
+
+    if (parseInt(open) === 1) {
+      ordenesTrabajo.ShowOrden(code)
+    }
+  }
 
   $(".ordenTrabajoPedido").on("click", function (e) {
     e.preventDefault()

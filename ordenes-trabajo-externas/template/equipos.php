@@ -1,4 +1,4 @@
-<?php 
+<?php
   include "../../conexion/conexion.php";
   $id = $_GET["subarea"];
   $equipo = $pdo->query("SELECT * FROM smgeequi WHERE eequi_sare_eequi='$id'");

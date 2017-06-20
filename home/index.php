@@ -36,7 +36,7 @@
             <h2 class="text-center no-margin title">INICIO</h2>
             <!-- panel-->
             <div class="panel panel-site-traffic">
-              <div class="LayoutHome col-xs-12">
+              <div class="col-xs-12">
               	<?php require "cards.php" ?>
               </div>
             </div>
@@ -53,5 +53,42 @@
 	  require "../templates/info.php";
 	  require "../scripts.php";
 	?>
+  <script type="text/javascript">
+  $('.tareas-asigado-home').on('click', taskView)
+  function taskView (e) {
+    var id = e.currentTarget.dataset.id
+    $("#id-task-work").val(id)
+    $.ajax({
+      type: "POST",
+      data: { id },
+      url: "../tareas/service/visto.php",
+      dataType: "JSON"
+    })
+    .done(function(snap) {
+      renderTemplate(snap)
+      alertaInfo("Ha visto la tarea empieza a trabajar")
+      $("#TareasAll").load("../task_table.php")
+    })
+  }
+  function renderTemplate (snap) {
+    $("#subareaContainerTask").load(`../tareas/template/subtask.php?id=${snap.subare_are_subare}`,
+    function () {
+      $("#subareaTask").val(snap.subare_cod_subare)
+    })
+
+    $("#tareasContainerTask").load(`../tareas/template/detalleTask.php?id=${snap.subare_cod_subare}`,
+    function () {
+      $("#detalleTask").val(snap.ltare_cod_ltare)
+    })
+
+    $("#equipoTask").val(snap.eequi_cod_eequi)
+    $("#areaTask").val(snap.subare_are_subare)
+    $("#empleadoTask").val(snap.eempl_ced_eempl)
+    $("#fechaTask").val(snap.etare_fet_etare)
+    document.querySelector(`input[value="${snap.etare_col_etare}_${snap.etare_pri_etare}_task"]`).checked = true
+    $("#FormTareaTrabajar").slideDown()
+  }
+  </script>
+
 </body>
 </html>

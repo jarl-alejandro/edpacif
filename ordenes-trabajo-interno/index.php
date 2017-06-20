@@ -2,8 +2,14 @@
   include "../conexion/conexion.php";
   date_default_timezone_set('America/Guayaquil');
   $hoy = date("Y/m/d");
-$fecha = date("d/m/Y");
-
+  $fecha = date("d/m/Y");
+  if (isset($_GET["open"])) {
+    $open = $_GET["open"];
+    $codigo = $_GET["codigo"];
+  } else{
+    $open = 0;
+    $codigo = 0;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,6 +25,8 @@ $fecha = date("d/m/Y");
   </style>
 </head>
 <body>
+  <input type="hidden" value="<?= $open ?>" id="openedOrdenHome" />
+  <input type="hidden" value="<?= $codigo ?>" id="codeOrdenHome" />
   <input type="hidden" id="id_orden">
   <header>
     <?php include '../header.php'; ?>

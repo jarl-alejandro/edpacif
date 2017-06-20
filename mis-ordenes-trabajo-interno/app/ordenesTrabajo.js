@@ -2,6 +2,7 @@
   'use strict'
 
   var dateMin = $("#DateMin").val()
+
   $( '.datepicker' ).pickadate({
     min: dateMin
   })

@@ -68,4 +68,5 @@ $tareas = $pdo->query("SELECT * FROM v_tarea
     window.open(`../reporte/materiales.php?id=${id}`, "_blank","toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=60, width=1200, height=600")
   }
 })
+
 </script>

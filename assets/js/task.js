@@ -68,7 +68,8 @@
   }
 
   function renderTemplate (snap) {
-    $("#subareaContainerTask").load(`../tareas/template/subtask.php?id=${snap.subare_are_subare}`, function () {
+    $("#subareaContainerTask").load(`../tareas/template/subtask.php?id=${snap.subare_are_subare}`,
+    function () {
       $("#subareaTask").val(snap.subare_cod_subare)
     })
 
@@ -181,5 +182,3 @@ $('.close--inven-task').on('click', function (e) {
   e.preventDefault()
   $(".panel-inventario-task").slideUp()
 })
-
-

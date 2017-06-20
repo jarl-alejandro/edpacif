@@ -39,9 +39,10 @@
         <td class="principal-cuenta"><?= $rows["erepo_equi_erepo"]; ?></td>
         <td class="principal-cuenta"><?= $rows["eequi_det_eequi"]; ?></td>
         <td class="principal-cuenta"><?= $rows["empleado"]; ?></td>
-        <td class="principal-cuenta"><button class='btn btn-raised btn-info print--faild'
-          data-id="<?= $rows["erepo_codi_erepo"]; ?>"><i class="fa fa-print"></i>
-        </button>
+        <td class="principal-cuenta">
+          <button class='btn btn-raised btn-info print--faild'
+            data-id="<?= $rows["erepo_codi_erepo"]; ?>"><i class="fa fa-print"></i>
+          </button>
         </td>
       </tr>
     <?php }
