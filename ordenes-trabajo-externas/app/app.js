@@ -3,6 +3,7 @@
   'use strict'
 
   const ordenesTrabajo = new OrdenesTrabajo()
+  loadHomeOrden()
 
   var $inicioFecha = $("#inicio-fecha")
   var $FinFecha = $("#fin-fecha")
@@ -17,6 +18,15 @@
   function handleEnviado (e) {
     var id = e.currentTarget.dataset.id
     ordenesTrabajo.showPedido(id)
+  }
+
+  function loadHomeOrden (){
+    var open = $("#openedOrdenHome").val()
+    var code = $("#codeOrdenHome").val()
+
+    if (parseInt(open) === 1) {
+      ordenesTrabajo.showPedido(code)
+    }
   }
 
   function handleClickClose () {

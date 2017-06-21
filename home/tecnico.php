@@ -45,47 +45,47 @@
   </section>
 
   <section class="orden-trabajo-pendientes">
-  <h3 class="tareas-pendientes__title">ORDEN TRABAJO PENDIENTES</h3>
-  <article class="tareas-pendientes__card">
-    <table class="table table-striped table-hover table-bordered table-responsive">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>CODIGO</th>
-          <th>DETALLE</th>
-          <th>ACCION</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-        $qs = $pdo->query("SELECT eorin_cod_eorin, eorin_det_eorin, eorin_est_eorin, eorin_emp_eorin
-          FROM sgmeorin WHERE eorin_est_eorin='asignado' AND eorin_emp_eorin='$cedula'");
-        $index = 0;
-        $count = $qs->rowCount();
-        foreach ($qs as $row) {
-          $index++;
-      ?>
+    <h3 class="tareas-pendientes__title">ORDEN TRABAJO PENDIENTES</h3>
+    <article class="tareas-pendientes__card">
+      <table class="table table-striped table-hover table-bordered table-responsive">
+        <thead>
           <tr>
-            <td><?= $index ?></td>
-            <td><?= $row['eorin_cod_eorin'] ?></td>
-            <td><?= $row['eorin_det_eorin'] ?></td>
-            <td>
-              <a href='../mis-ordenes-trabajo-interno?open=1&codigo=<?= $row['eorin_cod_eorin'] ?>' class="btn btn-raised btn-primary">VER</a>
-            </td>
+            <th>#</th>
+            <th>CODIGO</th>
+            <th>DETALLE</th>
+            <th>ACCION</th>
           </tr>
-      <?php
-          if ($index == 2) break;
-        }
-      ?>
-      </tbody>
-    </table>
-    <?php if ($count > 2){ ?>
-    <div class="center">
-      <button class="btn btn-raised btn-success" data-target="#orden-trabajo-pendiente" data-toggle="modal">VER MAS</button>
-    </div>
-    <?php } ?>
-  </article>
-</section>
+        </thead>
+        <tbody>
+        <?php
+          $qs = $pdo->query("SELECT eorin_cod_eorin, eorin_det_eorin, eorin_est_eorin, eorin_emp_eorin
+            FROM sgmeorin WHERE eorin_est_eorin='asignado' AND eorin_emp_eorin='$cedula'");
+          $index = 0;
+          $count = $qs->rowCount();
+          foreach ($qs as $row) {
+            $index++;
+        ?>
+            <tr>
+              <td><?= $index ?></td>
+              <td><?= $row['eorin_cod_eorin'] ?></td>
+              <td><?= $row['eorin_det_eorin'] ?></td>
+              <td>
+                <a href='../mis-ordenes-trabajo-interno?open=1&codigo=<?= $row['eorin_cod_eorin'] ?>' class="btn btn-raised btn-primary">VER</a>
+              </td>
+            </tr>
+        <?php
+            if ($index == 2) break;
+          }
+        ?>
+        </tbody>
+      </table>
+      <?php if ($count > 2){ ?>
+      <div class="center">
+        <button class="btn btn-raised btn-success" data-target="#orden-trabajo-pendiente" data-toggle="modal">VER MAS</button>
+      </div>
+      <?php } ?>
+    </article>
+  </section>
 </div>
 <!-- Tareas Pendientes -->
 <section id="complete-dialog" class="modal fade in" tabindex="-1">

@@ -75,7 +75,7 @@ $fecha = "$mes,  $dia $day del $year";
             echo '<h2 class="today-day">No hay aguajes previstos.</h2>';
           } else { ?>
           <div class="bandera">
-            <i class="fa fa-flag-checkered" 
+            <i class="fa fa-flag-checkered"
               style="color:<?=$aguaje["eagua_col_eagua"]?>"></i>
           </div>
           <div class="row mb10">
@@ -89,7 +89,7 @@ $fecha = "$mes,  $dia $day del $year";
             </div>
           </div>
           <p class="nomargin">
-            <?php 
+            <?php
             if($aguaje["eagua_ini_eagua"] == $day) {
               echo "Hoy inicia el aguaje";
             }
@@ -115,10 +115,34 @@ $fecha = "$mes,  $dia $day del $year";
         </div>
         <div id="listTask"></div>
       </div>
-    </div><!-- col-md-12 -->
+    </div>
 
-  </div><!-- row -->
-</div><!-- row -->
+    <?php
+    $id = $_SESSION["3188768e18a5c00164bbe22d1749a30e4626a114"];
+
+    $qs = $pdo->query("SELECT ecarg_det_ecarg, eempl_ced_eempl FROM v_empleados WHERE eempl_ced_eempl='$id'");
+    $employee = $qs->fetch();
+
+    $rol = strtoupper($employee['ecarg_det_ecarg']);
+
+    if ($rol == 'SUPERVISOR') { ?>
+    <div class="col-sm-5 col-md-12 col-lg-6">
+      <div class="panel panel-primary list-announcement">
+        <div class="panel-heading">
+          <h4 class="panel-title">Repuestos con Stcok Minimo</h4>
+        </div>
+        <article>
+          <h4 style="text-align:center">Tiene varios repuestos con stock minimo</h4>
+          <div style="text-align:center">
+            <a class="btn btn-raised btn-primary" href='../bajo-stock/'>VER MAS</a>
+          </div>
+        </article>
+      </div>
+    </div>
+    <?php } ?>
+
+  </div>
+</div>
 <div class="panel panel-danger none" id="TaskPanel">
   <div class="panel-heading">
     <h3 class="panel-title">Tareas</h3>
@@ -128,7 +152,7 @@ $fecha = "$mes,  $dia $day del $year";
     <div class="col-xs-12 center">
       <button class="btn btn-danger" id="closeTareas">Cerrar
         <i class="fa fa-times"></i>
-      </button>      
+      </button>
     </div>
   </div>
 </div>
